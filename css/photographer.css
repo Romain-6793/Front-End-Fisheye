@@ -50,6 +50,11 @@
   cursor: pointer;
 }
 
+.gallery_section article img {
+  height: 200px;
+  width: 200px;
+}
+
 .modal {
   border-radius: 5px;
   background-color: #db8876;
