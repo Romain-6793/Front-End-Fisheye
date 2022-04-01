@@ -10,6 +10,16 @@
   flex-flow: row;
 }
 
+.photograph-header article {
+  width: 100%;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 50px;
+  padding-right: 50px;
+}
+
 .photograph-header article img {
   height: 200px;
   width: 200px;
