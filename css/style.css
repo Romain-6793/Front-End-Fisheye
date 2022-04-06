@@ -37,6 +37,7 @@ h1 {
 
 .photographer_section article a {
   cursor: pointer;
+  text-decoration: none;
 }
 
 .photographer_section article a,

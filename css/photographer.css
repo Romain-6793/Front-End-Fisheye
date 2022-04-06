@@ -50,9 +50,57 @@
   cursor: pointer;
 }
 
+.gallery_section {
+  margin-left: 100px;
+  padding-top: 100px;
+  margin-right: 100px;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  position: relative;
+}
+
 .gallery_section article img {
-  height: 200px;
-  width: 200px;
+  height: 411px;
+  width: 411px;
+  object-fit: cover;
+}
+
+.gallery_section article div {
+  position: relative;
+  color: #901c1c;
+}
+
+.likes_and_button {
+  width: 100px;
+  height: 50px;
+  position: absolute;
+  border: 1px solid black;
+  bottom: 60px;
+  left: 350px;
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.number_of_likes {
+  position: relative;
+}
+
+.liking_button {
+  width: 30px;
+  height: 30px;
+  border: none;
+  background-color: #901c1c;
+  position: absolute;
+  left: 30px;
+  top: 8px;
+}
+
+.likes_popup {
+  width: 400px;
+  height: 50px;
+  background-color: #D3573C;
+  border-radius: 5px 5px 0 0;
 }
 
 .modal {

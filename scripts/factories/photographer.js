@@ -57,18 +57,7 @@ function photographerFactory(data) {
 function bannerFactory(data) {
     const { name, city, country, tagline, portrait } = data;
 
-    // La constante "picture" nous permet de tracer un chemin vers la propriété "portrait" de l'objet 
-    // photographers , cette propriété stockée dans la constante "picture" est ensuite placée comme attribut 
-    // src de l'image qui est créee ci-dessous. Image qui servira ensuite d'emplacement, pour les 
-    // photographes.
-
     const picture = `assets/photographers/${portrait}`;
-
-    // Cette fonction, déclarée à l'intérieur de photographerFactory, nous permet de créer pour chaque 
-    // photographe une image ainsi qu'un titre h2, elle attribue la constante "picture" à 
-    // l'image crée, elle fait en sorte que le contenu du h2 soit le contenu de "name", enfin, elle place 
-    // l'image et le h2 comme enfants de la division photograph-header et retourne la division.
-
 
     function getUserBanner() {
 
@@ -98,31 +87,15 @@ function bannerFactory(data) {
         return (article);
     }
 
-    // Nous avons comme valeur de retour les constantes name et picture ainsi que la fonction
-    // getUserBanner, sans parenthèses ?
-
     return { name, picture, getUserBanner }
 }
 
 // =====================================================================================================
 
 function galleryFactory(data) {
-    const { photographerId, image, title, likes } = data;
-
-    // La constante "picture" nous permet de tracer un chemin vers la propriété "portrait" de l'objet 
-    // photographers , cette propriété stockée dans la constante "picture" est ensuite placée comme attribut 
-    // src de l'image qui est créee ci-dessous. Image qui servira ensuite d'emplacement, pour les 
-    // photographes.
-
-    // TEST !!!
+    const { image, title, likes } = data;
 
     const picture = `assets/photographers/${image}`;
-
-    // Cette fonction, déclarée à l'intérieur de photographerFactory, nous permet de créer pour chaque 
-    // photographe une image ainsi qu'un titre h2, elle attribue la constante "picture" à 
-    // l'image crée, elle fait en sorte que le contenu du h2 soit le contenu de "name", enfin, elle place 
-    // l'image et le h2 comme enfants de la division photograph-header et retourne la division.
-
 
     function getUserGallery() {
 
@@ -131,17 +104,50 @@ function galleryFactory(data) {
         img.setAttribute("src", picture);
         const h3 = document.createElement('h3');
         const h3_2 = document.createElement('h3');
+        h3_2.classList.add("number_of_likes");
+        const div = document.createElement('div');
+        const div2 = document.createElement('div');
+        div2.classList.add("likes_and_button");
+        const button = document.createElement('button');
+        button.classList.add("liking_button");
+        button.setAttribute("type", "button");
         article.appendChild(img);
-        article.appendChild(h3);
-        article.appendChild(h3_2);
+        article.appendChild(div);
+        div.appendChild(h3);
+        div.appendChild(div2);
+        div2.appendChild(h3_2);
+        div2.appendChild(button);
         h3.textContent = title;
         h3_2.textContent = likes;
 
+
+
+
         return (article);
+
     }
 
-    // Nous avons comme valeur de retour les constantes name et picture ainsi que la fonction
-    // getUserBanner, sans parenthèses ?
-
     return { title, picture, getUserGallery }
+}
+
+// ==================================================================================================
+
+function priceFactory(data) {
+
+    const { price } = data;
+
+
+    function getUserPrice() {
+
+        const priceText = document.createElement("div");
+        const price2 = document.createElement("span");
+        priceText.appendChild(price2);
+        // // likesPopup.appendChild(span);
+        price2.textContent = `${price}€/jour`;
+
+        return (priceText);
+    }
+
+    return { price, getUserPrice }
+
 }
