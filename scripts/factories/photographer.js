@@ -93,15 +93,25 @@ function bannerFactory(data) {
 // =====================================================================================================
 
 function galleryFactory(data) {
-    const { image, title, likes } = data;
+    let { image, video, title, likes } = data;
 
     const picture = `assets/photographers/${image}`;
 
-    function getUserGallery() {
+    function getUserPictures() {
 
-        const article = document.createElement('article')
-        const img = document.createElement('img');
-        img.setAttribute("src", picture);
+
+
+        // Créer une balise video sinon créer une balise image.
+
+        const article = document.createElement('article');
+        if (video) {
+            const video = document.createElement('video');
+            article.appendChild(video);
+        } else {
+            const img = document.createElement('img');
+            article.appendChild(img);
+            img.setAttribute("src", picture);
+        }
         const h3 = document.createElement('h3');
         const h3_2 = document.createElement('h3');
         h3_2.classList.add("number_of_likes");
@@ -111,7 +121,6 @@ function galleryFactory(data) {
         const button = document.createElement('button');
         button.classList.add("liking_button");
         button.setAttribute("type", "button");
-        article.appendChild(img);
         article.appendChild(div);
         div.appendChild(h3);
         div.appendChild(div2);
@@ -119,6 +128,24 @@ function galleryFactory(data) {
         div2.appendChild(button);
         h3.textContent = title;
         h3_2.textContent = likes;
+        button.addEventListener("click", () => {
+            likes2 = likes + 1;
+            console.log(likes);
+            h3_2.textContent = likes2;
+            let everyLikes = document.querySelectorAll(".number_of_likes");
+            let totalOfLikes = 0;
+            // for (let i = 0; i < everyLikes.length; i++) {
+            //     totalOfLikes += everyLikes[i].likes;
+            // }
+            console.log(everyLikes);
+
+            // Faire une boucle for in ou for of ?
+
+        })
+
+        // Ci-dessus, je cherche à obtenir la valeur de tous les like sélectionnés dans mon querySelectorAll.
+
+
 
 
 
@@ -127,7 +154,7 @@ function galleryFactory(data) {
 
     }
 
-    return { title, picture, getUserGallery }
+    return { title, picture, getUserPictures }
 }
 
 // ==================================================================================================
