@@ -25,16 +25,38 @@
         <img src="assets/icons/close.svg" onclick="closeModal()" />
       </header>
       <form>
-        <div>
+        <div class="formData" id="formData1" data-error="false" data-error-visible="false">
           <label>Prénom</label>
           <input />
         </div>
-        <button class="contact_button">Envoyer</button>
+
+        <div class="formData" id="formData2" data-error="false" data-error-visible="false">
+          <label>Nom</label>
+          <input />
+        </div>
+        <div class="formData" id="formData3" data-error="false" data-error-visible="false">
+          <label>Email</label>
+          <input />
+        </div>
+        <div>
+          <label>Votre message</label>
+          <textarea name="Message" class="input_message" id="message" title="write message" autofocus></textarea>
+        </div>
+        <button type="submit" class="contact_button">Envoyer</button>
       </form>
     </div>
   </div>
+  <div id="confirm_modal">
+    <div class="modal">
+      <header>
+        <img src="assets/icons/close.svg" onclick="closeModal2()" />
+        <div class="modal2">
+          <h2>Merci pour votre message !</h2>
+        </div>
+      </header>
+    </div>
+  </div>
   <script src="scripts/factories/Photographer.js"></script>
-  <!-- <script src="scripts/pages/index.js"></script> -->
   <script src="scripts/pages/photographer.js"></script>
   <script src="/scripts/utils/contactForm.js"></script>
 </body>

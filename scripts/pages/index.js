@@ -48,28 +48,9 @@ fetch("../data/photographers.json")
     });
 
 
- // Cette fonction est la fontion de récupération des données des photographes, elle englobe les données 
-        // des photographes ainsi que le tableau de ces données qui est retourné.
 
-        // async function getPhotographers() {
 
-        //     // Ici j'ai remplacé ma constante photographers, par le résultat de la requête fetch. Le 
-        //     // .photographers me permet de cibler spécifiquement le tableau dont j'ai besoin dans le 
-        //     // document json.
 
-        //     const photographers = res2.photographers;
-
-        //     // la valeur de la fonction return est le tableau des photographes que nous avons obtenu
-        //     // par fetch.  
-
-        //     // J'ai besoin de précisions sur la notation.
-
-        //     return ({
-        //         photographers: [...photographers]
-        //     })
-        // }
-
-        
 
 
 

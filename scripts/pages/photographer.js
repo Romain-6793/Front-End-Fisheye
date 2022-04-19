@@ -9,7 +9,10 @@
 // est une tradcution des fonctions de notre design pattern factory en constantes.
 // Elle lie le DPF à notre code Javascript principal.
 
-function displayData(photographers) {
+let selectedPhotos = [];
+
+
+function displayBanner(photographers) {
     const photographersBanner = document.querySelector(".photograph-header");
 
     photographers.forEach((photographer) => {
@@ -24,19 +27,42 @@ function displayData(photographers) {
 // la gallery_section en récupérant dans le DOM la balise main puis en affiliant comme enfant de cette 
 // balise, la gallery-section .
 
-function displayData2(media) {
-
-    // data ou photographers ne fonctionne pas en deuxième paramètre. Impossible de faire un DPF 
-    // pour l'instant.
-    // const { price } = photographers;
+function displayGallery(media) {
 
     const photoSection0 = document.getElementById("main");
     const userSection0 = document.createElement("section");
     const likesPopup = document.createElement("div");
-    // const priceRecall = document.createElement("span");
+    const divSelect = document.createElement("div");
+    const labelSelect = document.createElement("label");
+    const menuSelect = document.createElement("select");
+    const option1 = document.createElement("option");
+    const option2 = document.createElement("option");
+    const option3 = document.createElement("option");
     photoSection0.appendChild(userSection0);
     userSection0.classList.add("gallery_section");
     const photoSection = document.querySelector(".gallery_section");
+    photoSection.appendChild(divSelect);
+    divSelect.classList.add("div_select");
+    divSelect.id = "div_select";
+    divSelect.appendChild(labelSelect);
+    labelSelect.classList.add("label_select");
+    labelSelect.setAttribute("for", "div_select");
+    labelSelect.innerText = "Trier par";
+    divSelect.appendChild(menuSelect);
+    menuSelect.id = "menu_select";
+    menuSelect.classList.add("menu_select");
+    menuSelect.appendChild(option1);
+    option1.classList.add("option");
+    option1.setAttribute("value", "popularité");
+    option1.innerText = "Popularité";
+    menuSelect.appendChild(option2);
+    option2.classList.add("option");
+    option2.setAttribute("value", "date");
+    option2.innerText = "Date";
+    menuSelect.appendChild(option3);
+    option3.classList.add("option");
+    option3.setAttribute("value", "titre");
+    option3.innerText = "Titre";
     media.forEach((photo) => {
         const photoSection2 = galleryFactory(photo);
         const userPictures = photoSection2.getUserPictures();
@@ -46,25 +72,155 @@ function displayData2(media) {
     likesPopup.setAttribute("id", "likes_popup");
     likesPopup.classList.add("likes_popup");
 
+
 };
 
-function displayData3(photographers) {
+function clearGallery() {
+    const userSection0 = document.querySelector(".gallery_section");
+    document.getElementById("main").removeChild(userSection0);
+}
+
+function displayLikes(photographers) {
     const likesPopup = document.getElementById("likes_popup");
-    console.log(likesPopup);
+
 
     photographers.forEach((photographer) => {
         const likesPopup2 = priceFactory(photographer);
         const userPrice = likesPopup2.getUserPrice();
         likesPopup.appendChild(userPrice);
+        const totalLikes = getTotaLikes();
+        displayTotalLikes(totalLikes);
     });
 };
 
-// function displayData4() {
-//     const likesPopup = document.getElementById("likes_popup");
-//     const displayTotalOfLikes = document.createElement("span");
-//     likesPopup.appendChild(displayTotalOfLikes);
+function sortPhotosByPopularity(selectedPhotos) {
+    console.log("tableau likes trié", selectedPhotos.sort((a, b) => {
+        a = a.likes;
+        b = b.likes;
+        if (a - b > 0) {
+            return -1;
+        }
+        if (a - b < 0) {
+            return 1;
+        }
+        if (a - b === 0) {
+            return 0;
+        }
+    }));
 
-// }
+    clearGallery();
+
+    displayGallery(selectedPhotos.sort((a, b) => {
+        a = a.likes;
+        b = b.likes;
+        if (a - b > 0) {
+            return -1;
+        }
+        if (a - b < 0) {
+            return 1;
+        }
+        if (a - b === 0) {
+            return 0;
+        }
+    }));
+
+    displayLikes(selectedPhotos);
+
+}
+
+function sortPhotosByDate(selectedPhotos) {
+    console.log("tableau dates trié", selectedPhotos.sort((a, b) => {
+        a = a.date;
+        b = b.date;
+
+        if (a > b) {
+            return -1;
+        }
+        if (a < b) {
+            return 1;
+        }
+        if (a === b) {
+            return a.date - b.date;
+        }
+    }));
+
+    clearGallery();
+
+    displayGallery(selectedPhotos.sort((a, b) => {
+        a = a.date;
+        b = b.date;
+
+        if (a > b) {
+            return -1;
+        }
+        if (a < b) {
+            return 1;
+        }
+        if (a === b) {
+            return a.date - b.date;
+        }
+    }));
+
+    displayLikes(selectedPhotos);
+
+}
+
+function sortPhotosByTitle(selectedPhotos) {
+    console.log("tableau titre trié", selectedPhotos.sort((a, b) => {
+        a = a.title;
+        b = b.title;
+
+        if (a < b) {
+            return -1;
+        }
+        if (a > b) {
+            return 1;
+        }
+        if (a === b) {
+            return a.date - b.date;
+        }
+    }));
+
+    clearGallery();
+
+    displayGallery(selectedPhotos.sort((a, b) => {
+        a = a.title;
+        b = b.title;
+
+        if (a < b) {
+            return -1;
+        }
+        if (a > b) {
+            return 1;
+        }
+        if (a === b) {
+            return a.date - b.date;
+        }
+    }));
+
+    displayLikes(selectedPhotos);
+
+}
+
+function launchSortPhotos() {
+    const selectionner = document.getElementById("menu_select");
+    selectionner.addEventListener("change", (e) => {
+
+        e.preventDefault();
+
+        if (e.target.value === "popularité") {
+            sortPhotosByPopularity(selectedPhotos);
+        }
+        if (e.target.value === "date") {
+            sortPhotosByDate(selectedPhotos);
+        }
+        if (e.target.value === "titre") {
+            sortPhotosByTitle(selectedPhotos);
+        }
+    })
+
+}
+
 
 
 fetch("../data/photographers.json")
@@ -97,10 +253,8 @@ fetch("../data/photographers.json")
 
         function getPhotos(photosId) {
 
-            // Ici j'ai donné à ma constante photos, le résultat de la requête fetch. Le 
-            // .media me permet de cibler spécifiquement le tableau dont j'ai besoin dans le 
-            // document json.
-            // Je reprends ensuite l'url actuelle avec l'id que j'ai utilisé pour obtenir la bannière
+
+            // Je reprends l'url actuelle avec l'id que j'ai utilisé pour obtenir la bannière
             // dans le 1er fetch. Je stocke cette id dans photographerId2. Je ré-utilise mon tableau 
             // de photos (const photos), pour y appliquer la méthode filter. Le paramètre (elem) me 
             // permet d'étudier chaque objet un par un pour y appliquer le filtre. Le filtre s'exprime 
@@ -112,7 +266,7 @@ fetch("../data/photographers.json")
             const url = new URL(window.location);
             const params = new URLSearchParams(url.search);
             const photographerId2 = Number(params.get("id"));
-            const selectedPhotos = photos.filter((elem) => {
+            selectedPhotos = photos.filter((elem) => {
                 if (photosId === photographerId2) {
                     return elem.photographerId === photosId;
                 }
@@ -120,14 +274,13 @@ fetch("../data/photographers.json")
 
             return selectedPhotos;
 
+
         }
 
         function getPhotographer2(photographerId) {
 
-            // Ici j'ai donné à ma constante photographers, le résultat de la requête fetch. Le
-            // .photographers me permet de cibler spécifiquement le tableau dont j'ai besoin dans le
-            // document json.
-            // J'associe ensuite photographerId au résultat de ma méthode find qui vise l'id de l'élément
+
+            // J'associe photographerId au résultat de ma méthode find qui vise l'id de l'élément
             // passé en paramètre à partir du tableau "photographers". Je stocke tout cela dans la constante
             // selectedPhotographe que j'obtiens dans le return pour m'en servir par la suite.
             // C'est le return qui va faire en sorte que ma fonction init sélectionne le bon photographe.
@@ -141,47 +294,6 @@ fetch("../data/photographers.json")
 
         }
 
-        // function getLikes(photosId) {
-
-
-
-        //     const photos = res2.media;
-        //     const url = new URL(window.location);
-        //     const params = new URLSearchParams(url.search);
-        //     const photographerId2 = Number(params.get("id"));
-        //     const selectedPhotos = photos.filter((elem) => {
-        //         if (photosId === photographerId2) {
-        //             return elem.photographerId === photosId;
-        //         }
-        //     });
-        //     const displayTotalOfLikes = document.createElement("span");
-        //     const likesPopup = document.getElementById("likes_popup");
-        //     let totalOfLikes = 0;
-        //     for (let i = 0; i < selectedPhotos.length; i++) {
-        //         totalOfLikes += selectedPhotos[i].likes
-        //     }
-        //     console.log(totalOfLikes);
-        //     displayTotalOfLikes.innerText = totalOfLikes;
-        //     // likesPopup.appendChild(displayTotalOfLikes); 
-
-        //     // C'est cette ligne qui est problématique, mais pourquoi !!??
-
-
-        // return displayTotalOfLikes;
-
-
-
-
-        // function increaseLikes1 {
-        //     const likingButton = document.querySelector(".liking_button");
-        //     likingButton.addEventListener("click", () => {
-
-        //     }
-        //      )
-        // }
-
-        // }
-
         async function init() {
 
             const url = new URL(window.location);
@@ -191,12 +303,13 @@ fetch("../data/photographers.json")
             const photographers = await getPhotographer(photographerId);
             const photos = await getPhotos(photographerId);
             const photographers2 = await getPhotographer2(photographerId);
-            // const likes = await getLikes(photographerId);
-            // console.log(likes);
-            displayData([photographers]);
-            displayData2(photos);
-            displayData3([photographers2]);
-            // displayData4(likes);
+            displayBanner([photographers]);
+            displayGallery(photos);
+            displayLikes([photographers2]);
+            launchSortPhotos(selectedPhotos);
+            // sortPhotosByPopularity(selectedPhotos);
+            // sortPhotosByDate(selectedPhotos);
+            // sortPhotosByTitle(selectedPhotos);
         };
 
         init();
@@ -205,6 +318,10 @@ fetch("../data/photographers.json")
     .catch(function (err) {
 
     });
+
+
+
+
 
 
 

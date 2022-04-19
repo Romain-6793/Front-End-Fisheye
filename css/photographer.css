@@ -1,11 +1,21 @@
-#contact_modal {
+#contact_modal, #confirm_modal {
   display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+  background-color: rgba(220, 220, 220, 0.4);
 }
 
 .photograph-header {
   background-color: #fafafa;
   height: 300px;
-  margin: 0 100px;
+  margin-left: 100px;
+  margin-right: 100px;
+  margin-bottom: 0;
   display: flex;
   flex-flow: row;
 }
@@ -37,6 +47,10 @@
   font-size: 18px;
 }
 
+.photograph-header article h4 {
+  font-weight: normal;
+}
+
 .contact_button {
   font-size: 20px;
   font-weight: bold;
@@ -60,9 +74,30 @@
   position: relative;
 }
 
-.gallery_section article img {
-  height: 411px;
-  width: 411px;
+.div_select {
+  width: 100%;
+  margin-top: -70px;
+  margin-bottom: 70px;
+}
+
+.label_select {
+  font-size: 16px;
+  font-weight: bolder;
+  margin-right: 20px;
+}
+
+.menu_select {
+  height: 50px;
+  width: 150px;
+  padding-left: 10px;
+  border-radius: 5px;
+  color: #fafafa;
+  background-color: #901c1c;
+}
+
+.gallery_section article img, .gallery_section article video {
+  height: 370px;
+  width: 370px;
   object-fit: cover;
 }
 
@@ -77,7 +112,7 @@
   position: absolute;
   border: 1px solid black;
   bottom: 60px;
-  left: 350px;
+  left: 310px;
   display: flex;
   flex-flow: row wrap;
 }
@@ -101,18 +136,32 @@
   height: 50px;
   background-color: #D3573C;
   border-radius: 5px 5px 0 0;
+  position: absolute;
+  right: 95px;
+  bottom: -5px;
+  position: fixed;
+
 }
 
 .modal {
   border-radius: 5px;
   background-color: #db8876;
   width: 50%;
+  min-height: 1000px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
   padding: 35px;
   margin: auto;
+}
+
+.modal2
+{
+  display: flex;
+  flex-flow: column wrap;
+  align-items: center;
+  justify-content: center;
 }
 
 .modal header {
@@ -155,4 +204,37 @@ form input {
   height: 68px;
   border: none;
   border-radius: 5px;
+  font-size: 22px;
+}
+
+.input_message {
+  height: 204px;
+  width: 100%;
+  border-radius: 5px;
+  font-size: 22px;
+}
+
+.formData[data-error]::after {
+  content: attr(data-error);
+  font-size: 0.4em;
+  color: #e54858;
+  display: block;
+  margin-top: 7px;
+  margin-bottom: 7px;
+  text-align: left;
+  line-height: 0.3;
+  opacity: 0;
+  transition: 0.3s;
+}
+.formData[data-error-visible="true"]::after {
+  opacity: 1;
+}
+.formData[data-error-visible="true"] .text-control {
+  border: 2px solid #e54858;
+}
+
+input[data-error="true"]::after {
+  content: attr(data-error);
+  font-size: 0.4em;
+  color: red;
 }

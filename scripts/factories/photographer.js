@@ -1,4 +1,38 @@
 
+
+// Cette fonction (stockée dans la variable totalLikes) commence par sélectionner tous les h3 contenant
+// le nombre de like spécifiques à chaque photo. Puis la variable totalOfLikes intervient , elle 
+// démarre à 0, puis s'incrémente grâce à une boucle qui s'itère à chaque h3. La valeur de retour 
+// totalOfLikes est ainsi actualisée à la fin.
+
+function getTotaLikes() {
+    let everyLikes = document.querySelectorAll(".number_of_likes");
+    let totalOfLikes = 0;
+    for (let i = 0; i < everyLikes.length; i++) {
+        totalOfLikes += Number(everyLikes[i].textContent);
+    }
+
+    return totalOfLikes;
+}
+
+// Ici est déclarée la fonction displayTotalLikes qui permet de sélectionner la div likes_popup et d'y mettre
+// comme texte ce qui est passé en paramètre. Cf = ligne 150 la variable TotalLikes et ligne 189
+// getTotalLikes.
+
+function displayTotalLikes(total) {
+    const likesPopup = document.getElementById("likes_popup");
+    const likesDiv = document.createElement("div");
+    likesDiv.classList.add("likes_div");
+    likesPopup.appendChild(likesDiv);
+    const totalLikesSpan = document.createElement("span");
+    likesDiv.appendChild(totalLikesSpan);
+    totalLikesSpan.classList.add("total_likes_span");
+    totalLikesSpan.innerText = total;
+
+}
+
+
+
 // Cette macro fonction nous permet de créer l'objet "photographer". Avec toutes ses propriétés.
 
 function photographerFactory(data) {
@@ -62,7 +96,6 @@ function bannerFactory(data) {
     function getUserBanner() {
 
         const article = document.createElement('article');
-        // photograph-header.appendChild(article);
         const img = document.createElement('img');
         const div1 = document.createElement('div');
         const div2 = document.createElement('div');
@@ -96,17 +129,23 @@ function galleryFactory(data) {
     let { image, video, title, likes } = data;
 
     const picture = `assets/photographers/${image}`;
+    const movie = `assets/photographers/${video}`;
+
+    // la fonction getLikes me permet d'avoir la valeur likes de façon dynamique.
+
+    function getLikes() {
+        return likes;
+    }
 
     function getUserPictures() {
-
-
-
-        // Créer une balise video sinon créer une balise image.
 
         const article = document.createElement('article');
         if (video) {
             const video = document.createElement('video');
             article.appendChild(video);
+            video.setAttribute("src", movie);
+            video.setAttribute("controls", "width 250");
+            video.setAttribute("type", "video/mp4");
         } else {
             const img = document.createElement('img');
             article.appendChild(img);
@@ -121,40 +160,45 @@ function galleryFactory(data) {
         const button = document.createElement('button');
         button.classList.add("liking_button");
         button.setAttribute("type", "button");
+        // const span = document.createElement("span");
         article.appendChild(div);
         div.appendChild(h3);
+        // div.appendChild(span);
         div.appendChild(div2);
         div2.appendChild(h3_2);
         div2.appendChild(button);
         h3.textContent = title;
         h3_2.textContent = likes;
-        button.addEventListener("click", () => {
-            likes2 = likes + 1;
-            console.log(likes);
-            h3_2.textContent = likes2;
-            let everyLikes = document.querySelectorAll(".number_of_likes");
-            let totalOfLikes = 0;
-            // for (let i = 0; i < everyLikes.length; i++) {
-            //     totalOfLikes += everyLikes[i].likes;
-            // }
-            console.log(everyLikes);
+        // span.textContent = date;
 
-            // Faire une boucle for in ou for of ?
+        // La fonction ci-dessous permet, lorsque je clique sur le bouton du like, de redéfinir la valeur like
+        // avec la valeur de getLikes incrémentée, et d'actualiser l'affichage de mon h3. 
+        // Je définis ensuite une variable totalLikes que j'associe à la fonction getTotalLikes.
+        // Cette fonction stockée est en fait passée en paramètre de displayTotalLikes.
+
+
+        button.addEventListener("click", () => {
+            likes = getLikes() + 1;
+            h3_2.textContent = likes;
+
+
+            let currentTotalofLikes = getTotaLikes() + 1;
+
+            function displayCurrentTotalLikes(total) {
+                const totalLikesSpan = document.querySelector(".total_likes_span");
+                totalLikesSpan.innerText = total;
+
+            }
+
+            displayCurrentTotalLikes(currentTotalofLikes);
 
         })
-
-        // Ci-dessus, je cherche à obtenir la valeur de tous les like sélectionnés dans mon querySelectorAll.
-
-
-
-
-
 
         return (article);
 
     }
 
-    return { title, picture, getUserPictures }
+    return { title, picture, getUserPictures, getLikes }
 }
 
 // ==================================================================================================
@@ -166,15 +210,16 @@ function priceFactory(data) {
 
     function getUserPrice() {
 
-        const priceText = document.createElement("div");
+        const likesPopup = document.getElementById("likes_popup");
         const price2 = document.createElement("span");
-        priceText.appendChild(price2);
-        // // likesPopup.appendChild(span);
+        likesPopup.appendChild(price2);
         price2.textContent = `${price}€/jour`;
 
-        return (priceText);
+        return (price2);
+
     }
 
     return { price, getUserPrice }
 
 }
+
