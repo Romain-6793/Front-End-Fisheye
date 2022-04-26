@@ -1,9 +1,10 @@
 
 
-// Cette fonction (stockée dans la variable totalLikes) commence par sélectionner tous les h3 contenant
-// le nombre de like spécifiques à chaque photo. Puis la variable totalOfLikes intervient , elle 
-// démarre à 0, puis s'incrémente grâce à une boucle qui s'itère à chaque h3. La valeur de retour 
-// totalOfLikes est ainsi actualisée à la fin.
+// Cette fonction (stockée dans la variable totalLikes dans photographers.js) commence par sélectionner 
+// tous les h3 contenant le nombre de likes spécifiques à chaque photo. Puis la variable totalOfLikes 
+// intervient , elle démarre à 0, puis s'incrémente grâce à une boucle qui s'itère à chaque h3, 
+// additionnant ainsi chaque nombre de likes en textContent de chaque h3. La valeur de retour totalOfLikes 
+// est ainsi actualisée à la fin.
 
 function getTotaLikes() {
     let everyLikes = document.querySelectorAll(".number_of_likes");
@@ -15,9 +16,8 @@ function getTotaLikes() {
     return totalOfLikes;
 }
 
-// Ici est déclarée la fonction displayTotalLikes qui permet de sélectionner la div likes_popup et d'y mettre
-// comme texte ce qui est passé en paramètre. Cf = ligne 150 la variable TotalLikes et ligne 189
-// getTotalLikes.
+// Ici est déclarée la fonction displayTotalLikes qui permet de sélectionner la div likes_popup et 
+// d'y mettre comme texte ce qui est passé en paramètre. Cf = la variable totalLikes et getTotalLikes.
 
 function displayTotalLikes(total) {
     const likesPopup = document.getElementById("likes_popup");
@@ -33,7 +33,8 @@ function displayTotalLikes(total) {
 
 
 
-// Cette macro fonction nous permet de créer l'objet "photographer". Avec toutes ses propriétés.
+// Cette macro fonction nous permet de récupérer dans le json toutes les propriétés dont nous avons 
+// besoin pour créer la présentation de chaque photographe dans la page d'accueil.
 
 function photographerFactory(data) {
     const { name, id, city, country, tagline, price, portrait } = data;
@@ -50,8 +51,10 @@ function photographerFactory(data) {
     // l'image crée, elle fait en sorte que le contenu du h2 soit le contenu de "name", enfin, elle place 
     // l'image et le h2 comme enfants de l'article et retourne l'article.
 
-    // Ligne 36, j'ai pu associer une url aux liens avec le href, puis ajouter un query parameter avec ?
+    // J'ai pu associer une url aux liens avec le href, puis ajouter un query parameter avec ?
     // Et ajouter id = ${id}, c'est à dire, ma propriété id de l'objet photographers (dans le json).
+    // Cela signifie que le lien va nous envoyer vers la page dont l'id correspond au photographe
+    // sélectionné.
 
     function getUserCardDOM() {
         const article = document.createElement('article');
@@ -87,6 +90,10 @@ function photographerFactory(data) {
 
 
 // =====================================================================================================
+
+// Ci-dessous arrivent les factories spécifiques aux pages photographers, le principe est à chaque 
+// fois peu ou prou le même que pour photographerFactory.
+
 
 function bannerFactory(data) {
     const { name, city, country, tagline, portrait } = data;
@@ -157,19 +164,18 @@ function galleryFactory(data) {
         const div = document.createElement('div');
         const div2 = document.createElement('div');
         div2.classList.add("likes_and_button");
-        const button = document.createElement('button');
-        button.classList.add("liking_button");
-        button.setAttribute("type", "button");
+        const likingButton = document.createElement('img');
+        likingButton.classList.add("liking_button");
+        likingButton.setAttribute("src", "../assets/icons/heart.svg");
         // const span = document.createElement("span");
         article.appendChild(div);
         div.appendChild(h3);
         // div.appendChild(span);
         div.appendChild(div2);
         div2.appendChild(h3_2);
-        div2.appendChild(button);
+        div2.appendChild(likingButton);
         h3.textContent = title;
         h3_2.textContent = likes;
-        // span.textContent = date;
 
         // La fonction ci-dessous permet, lorsque je clique sur le bouton du like, de redéfinir la valeur like
         // avec la valeur de getLikes incrémentée, et d'actualiser l'affichage de mon h3. 
@@ -177,12 +183,12 @@ function galleryFactory(data) {
         // Cette fonction stockée est en fait passée en paramètre de displayTotalLikes.
 
 
-        button.addEventListener("click", () => {
+        likingButton.addEventListener("click", () => {
             likes = getLikes() + 1;
             h3_2.textContent = likes;
 
 
-            let currentTotalofLikes = getTotaLikes() + 1;
+            let currentTotalofLikes = getTotaLikes();
 
             function displayCurrentTotalLikes(total) {
                 const totalLikesSpan = document.querySelector(".total_likes_span");
@@ -201,6 +207,7 @@ function galleryFactory(data) {
     return { title, picture, getUserPictures, getLikes }
 }
 
+
 // ==================================================================================================
 
 function priceFactory(data) {
@@ -213,6 +220,7 @@ function priceFactory(data) {
         const likesPopup = document.getElementById("likes_popup");
         const price2 = document.createElement("span");
         likesPopup.appendChild(price2);
+        price2.classList.add("price_span");
         price2.textContent = `${price}€/jour`;
 
         return (price2);

@@ -1,4 +1,4 @@
-#contact_modal, #confirm_modal {
+#contact_modal, #confirm_modal, #lightbox_modal {
   display: none;
   position: fixed;
   z-index: 1;
@@ -51,7 +51,7 @@
   font-weight: normal;
 }
 
-.contact_button {
+.contact_button, .send_button {
   font-size: 20px;
   font-weight: bold;
   color: white;
@@ -75,9 +75,9 @@
 }
 
 .div_select {
+  margin-left: 100px;
+  margin-top: 5px;
   width: 100%;
-  margin-top: -70px;
-  margin-bottom: 70px;
 }
 
 .label_select {
@@ -110,8 +110,7 @@
   width: 100px;
   height: 50px;
   position: absolute;
-  border: 1px solid black;
-  bottom: 60px;
+  bottom: 65px;
   left: 310px;
   display: flex;
   flex-flow: row wrap;
@@ -122,14 +121,21 @@
 }
 
 .liking_button {
-  width: 30px;
-  height: 30px;
-  border: none;
-  background-color: #901c1c;
   position: absolute;
+  width: 40px;
+  height: 40px;
   left: 30px;
-  top: 8px;
+  top: 15px;
+  shape-rendering: crispEdges;
+ 
 }
+
+img.liking_button {
+  width: 30px!important;
+  height: 30px!important;
+}
+
+
 
 .likes_popup {
   width: 400px;
@@ -137,6 +143,7 @@
   background-color: #D3573C;
   border-radius: 5px 5px 0 0;
   position: absolute;
+  z-index: 3;
   right: 95px;
   bottom: -5px;
   position: fixed;
@@ -154,14 +161,6 @@
   justify-content: space-between;
   padding: 35px;
   margin: auto;
-}
-
-.modal2
-{
-  display: flex;
-  flex-flow: column wrap;
-  align-items: center;
-  justify-content: center;
 }
 
 .modal header {
@@ -216,8 +215,9 @@ form input {
 
 .formData[data-error]::after {
   content: attr(data-error);
-  font-size: 0.4em;
-  color: #e54858;
+  font-size: 17px;
+  font-weight: bold;
+  color: red;
   display: block;
   margin-top: 7px;
   margin-bottom: 7px;
@@ -229,12 +229,37 @@ form input {
 .formData[data-error-visible="true"]::after {
   opacity: 1;
 }
-.formData[data-error-visible="true"] .text-control {
-  border: 2px solid #e54858;
+.formData[data-error-visible="true"] .text_control {
+  border: 2px solid red;
 }
 
 input[data-error="true"]::after {
   content: attr(data-error);
-  font-size: 0.4em;
+  font-size: 17px;
   color: red;
+}
+
+.modal2
+{
+  position: relative;
+}
+
+.close2
+{
+  position: absolute;
+  left: 700px;
+}
+
+.thanks
+{
+  position: absolute;
+  width: 500px;
+  text-align: center;
+  left: 120px;
+  top: 200px;
+}
+
+.caroussel
+{
+  display: none;
 }

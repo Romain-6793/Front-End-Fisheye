@@ -1,27 +1,39 @@
 
-const sendButton = document.querySelector(".contact_button");
+const sendButton = document.querySelectorAll(".send_button");
 const modalbg = document.getElementById("contact_modal");
 const modalbg2 = document.getElementById("confirm_modal");
+const close2 = document.querySelectorAll(".close2");
 
-sendButton.addEventListener("click", launchSubmit);
+sendButton.forEach((button) => button.addEventListener("click", launchSubmit));
+close2.forEach((button) => button.addEventListener("click", () => {
+    document.forms[0].reset();
+    closeModal2();
+}))
 
 let rightFirstName;
 let rightLastName;
 let rightMail;
+let rightMessage;
 
 function displayModal() {
     const modal = document.getElementById("contact_modal");
     modal.style.display = "block";
+    const likesPopup = document.getElementById("likes_popup");
+    likesPopup.style.display = "none";
 }
 
 function closeModal() {
     const modal = document.getElementById("contact_modal");
     modal.style.display = "none";
+    const likesPopup = document.getElementById("likes_popup");
+    likesPopup.style.display = "block";
 }
 
 function closeModal2() {
     const modal = document.getElementById("confirm_modal");
     modal.style.display = "none";
+    const likesPopup = document.getElementById("likes_popup");
+    likesPopup.style.display = "block";
 }
 
 function isMyFirstNameTrue(myFirstName) {
@@ -64,6 +76,20 @@ function isMailTrue(myMail) {
 
 }
 
+function isMyMessageCorrect(myMessage) {
+    if (myMessage.length >= 2) {
+        rightMessage = true;
+        document.getElementById("formData4").setAttribute("data-error", "false");
+        document.getElementById("formData4").setAttribute("data-error-visible", "false");
+    } else {
+        rightMessage = false;
+        document.getElementById("formData4").setAttribute("data-error", "Votre message doit contenir au moins deux caractères");
+        document.getElementById("formData4").setAttribute("data-error-visible", "true");
+    }
+
+}
+
+
 function launchSubmit(e) {
     e.preventDefault();
     const firstNameData = document.querySelector(".firstname").value;
@@ -72,10 +98,13 @@ function launchSubmit(e) {
     isMyLastNameTrue(lastNameData);
     const mailData = document.querySelector(".mailadress").value;
     isMailTrue(mailData);
+    const messageData = document.querySelector(".input_message").value;
+    isMyMessageCorrect(messageData);
 
     if ((rightFirstName) && (rightLastName) && (rightMail)) {
         modalbg.style.display = "none";
         modalbg2.style.display = "block";
     }
+
 }
 

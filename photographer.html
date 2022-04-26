@@ -17,6 +17,15 @@
     <div class="photograph-header">
       <button class="contact_button" id="cbtn" onclick="displayModal()">Contactez-moi</button>
     </div>
+    <div id="div_select" class="div_select">
+      <label for="div_select" class="label_select">Trier par</label>
+      <select id="menu_select" class="menu_select">
+        <option value="popularité">Popularité</option>
+        <option value="date">Date</option>
+        <option value="titre">Titre</option>
+      </select>
+    </div>
+    <div id="likes_popup" class="likes_popup"></div>
   </main>
   <div id="contact_modal">
     <div class="modal">
@@ -27,36 +36,85 @@
       <form>
         <div class="formData" id="formData1" data-error="false" data-error-visible="false">
           <label>Prénom</label>
-          <input />
+          <input class="text_control firstname" />
         </div>
 
         <div class="formData" id="formData2" data-error="false" data-error-visible="false">
           <label>Nom</label>
-          <input />
+          <input class="text_control lastname" />
         </div>
         <div class="formData" id="formData3" data-error="false" data-error-visible="false">
           <label>Email</label>
-          <input />
+          <input class="text_control mailadress" />
         </div>
-        <div>
+        <div class="formData" id="formData4" data-error="false" data-error-visible="false">
           <label>Votre message</label>
-          <textarea name="Message" class="input_message" id="message" title="write message" autofocus></textarea>
+          <textarea name="Message" class="text_control input_message" id="message" title="write message"
+            autofocus></textarea>
         </div>
-        <button type="submit" class="contact_button">Envoyer</button>
+        <button type="submit" class="send_button" id="send_button">Envoyer</button>
       </form>
     </div>
   </div>
   <div id="confirm_modal">
     <div class="modal">
       <header>
-        <img src="assets/icons/close.svg" onclick="closeModal2()" />
         <div class="modal2">
-          <h2>Merci pour votre message !</h2>
+          <img src="assets/icons/close.svg" class="close2" />
+          <h2 class="thanks">Merci, votre message a été envoyé avec succès !</h2>
         </div>
       </header>
     </div>
   </div>
-  <script src="scripts/factories/Photographer.js"></script>
+  <div id="lightbox_modal">
+    <ul class="carousel">
+      <img src="assets/icons/close.svg" onclick="closeLB()" />
+      <li class="carousel-item item-0">
+        <div role="button" class="controls controls-left">
+          <span class="img prev-image">
+            <i class="fa fa-arrow-circle-left"></i>
+          </span>
+        </div>
+        <div role="button" class="controls controls-right">
+          <span class="img next-image">
+            <i class="fa fa-arrow-circle-right"></i>
+          </span>
+        </div>
+        <div class="caroussel-picture">
+        </div>
+      </li>
+      <li class="carousel-item item-1">
+        <div role="button" class="controls controls-left">
+          <span class="img prev-image">
+            <i class="fa fa-arrow-circle-left"></i>
+          </span>
+        </div>
+        <div role="button" class="controls controls-right">
+          <span class="img next-image">
+            <i class="fa fa-arrow-circle-right"></i>
+          </span>
+        </div>
+        <div class="caroussel-picture">
+        </div>
+      </li>
+      <li class="carousel-item item-2">
+        <!-- Mettre fontawesome ou mettre des svg ? -->
+        <div role="button" class="controls controls-left">
+          <span class="img prev-image">
+            <i class="fa fa-arrow-circle-left"></i>
+          </span>
+        </div>
+        <div role="button" class="controls controls-right">
+          <span class="img next-image">
+            <i class="fa fa-arrow-circle-right"></i>
+          </span>
+        </div>
+        <div class="caroussel-picture">
+        </div>
+      </li>
+    </ul>
+  </div>
+  <script src="scripts/factories/factories.js"></script>
   <script src="scripts/pages/photographer.js"></script>
   <script src="/scripts/utils/contactForm.js"></script>
 </body>

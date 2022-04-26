@@ -6,6 +6,7 @@
 // la constante userCardDOM comme enfant de la constante photographersSection. En bref, cette fonction 
 // est une tradcution des fonctions de notre design pattern factory en constantes.
 // Elle lie le DPF à notre code Javascript principal.
+import { add } from "./utils.js";
 
 function displayData(photographers) {
     const photographersSection = document.querySelector(".photographer_section");
@@ -46,6 +47,8 @@ fetch("../data/photographers.json")
     .catch(function (err) {
 
     });
+
+add(2, 3);
 
 
 
