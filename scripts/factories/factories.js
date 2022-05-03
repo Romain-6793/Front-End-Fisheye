@@ -6,7 +6,7 @@
 // additionnant ainsi chaque nombre de likes en textContent de chaque h3. La valeur de retour totalOfLikes 
 // est ainsi actualisée à la fin.
 
-function getTotaLikes() {
+export function getTotaLikes() {
     let everyLikes = document.querySelectorAll(".number_of_likes");
     let totalOfLikes = 0;
     for (let i = 0; i < everyLikes.length; i++) {
@@ -19,13 +19,20 @@ function getTotaLikes() {
 // Ici est déclarée la fonction displayTotalLikes qui permet de sélectionner la div likes_popup et 
 // d'y mettre comme texte ce qui est passé en paramètre. Cf = la variable totalLikes et getTotalLikes.
 
-function displayTotalLikes(total) {
+export function displayTotalLikes(total) {
     const likesPopup = document.getElementById("likes_popup");
+    const likesPosition = document.createElement("div");
+    const likesIcon = document.createElement("img");
     const likesDiv = document.createElement("div");
-    likesDiv.classList.add("likes_div");
-    likesPopup.appendChild(likesDiv);
+    likesPosition.classList.add("likes_position");
+    likesPopup.appendChild(likesPosition);
     const totalLikesSpan = document.createElement("span");
+    likesPosition.appendChild(likesDiv);
     likesDiv.appendChild(totalLikesSpan);
+    likesDiv.appendChild(likesIcon);
+    likesIcon.setAttribute("src", "../assets/icons/heart2.svg");
+    likesDiv.classList.add("likes_div");
+    likesIcon.classList.add("likes_icon");
     totalLikesSpan.classList.add("total_likes_span");
     totalLikesSpan.innerText = total;
 
@@ -36,7 +43,7 @@ function displayTotalLikes(total) {
 // Cette macro fonction nous permet de récupérer dans le json toutes les propriétés dont nous avons 
 // besoin pour créer la présentation de chaque photographe dans la page d'accueil.
 
-function photographerFactory(data) {
+export function photographerFactory(data) {
     const { name, id, city, country, tagline, price, portrait } = data;
 
     // La constante "picture" nous permet de tracer un chemin vers la propriété "portrait" de l'objet 
@@ -95,7 +102,7 @@ function photographerFactory(data) {
 // fois peu ou prou le même que pour photographerFactory.
 
 
-function bannerFactory(data) {
+export function bannerFactory(data) {
     const { name, city, country, tagline, portrait } = data;
 
     const picture = `assets/photographers/${portrait}`;
@@ -132,7 +139,7 @@ function bannerFactory(data) {
 
 // =====================================================================================================
 
-function galleryFactory(data) {
+export function galleryFactory(data) {
     let { image, video, title, likes } = data;
 
     const picture = `assets/photographers/${image}`;
@@ -146,18 +153,21 @@ function galleryFactory(data) {
 
     function getUserPictures() {
 
+        const photolink = document.createElement('a');
         const article = document.createElement('article');
+        article.appendChild(photolink);
         if (video) {
             const video = document.createElement('video');
-            article.appendChild(video);
+            photolink.appendChild(video);
             video.setAttribute("src", movie);
             video.setAttribute("controls", "width 250");
             video.setAttribute("type", "video/mp4");
         } else {
             const img = document.createElement('img');
-            article.appendChild(img);
+            photolink.appendChild(img);
             img.setAttribute("src", picture);
         }
+        photolink.classList.add("photo_link");
         const h3 = document.createElement('h3');
         const h3_2 = document.createElement('h3');
         h3_2.classList.add("number_of_likes");
@@ -176,6 +186,7 @@ function galleryFactory(data) {
         div2.appendChild(likingButton);
         h3.textContent = title;
         h3_2.textContent = likes;
+
 
         // La fonction ci-dessous permet, lorsque je clique sur le bouton du like, de redéfinir la valeur like
         // avec la valeur de getLikes incrémentée, et d'actualiser l'affichage de mon h3. 
@@ -210,16 +221,16 @@ function galleryFactory(data) {
 
 // ==================================================================================================
 
-function priceFactory(data) {
+export function priceFactory(data) {
 
     const { price } = data;
 
 
     function getUserPrice() {
 
-        const likesPopup = document.getElementById("likes_popup");
+        const likesPosition = document.querySelector(".likes_position")
         const price2 = document.createElement("span");
-        likesPopup.appendChild(price2);
+        likesPosition.appendChild(price2);
         price2.classList.add("price_span");
         price2.textContent = `${price}€/jour`;
 
@@ -231,3 +242,50 @@ function priceFactory(data) {
 
 }
 
+// ======================================================================================================
+
+export function lightBoxFactory(data) {
+
+    let { image, video, title } = data;
+
+    const picture = `assets/photographers/${image}`;
+    const movie = `assets/photographers/${video}`;
+    // const lightBox = document.getElementById("lightbox_modal");
+    // lightBox.style.display = "block";
+
+
+    // for (let i = 0; i < data.length; i++) {
+
+
+    // }
+
+    function getUserLightBox() {
+
+
+        const container = document.createElement("div");
+        const article = document.createElement('article');
+        if (video) {
+            const video = document.createElement('video');
+            article.appendChild(video);
+            video.setAttribute("src", movie);
+            video.setAttribute("controls", "width 250");
+            video.setAttribute("type", "video/mp4");
+        } else {
+            const img = document.createElement('img');
+            article.appendChild(img);
+            img.setAttribute("src", picture);
+        }
+        const h3 = document.createElement('h3');
+        const div = document.createElement('div');
+        container.appendChild(article)
+        article.appendChild(div);
+        div.appendChild(h3);
+        h3.textContent = title;
+
+
+    }
+
+    return {
+        image, video, title, getUserLightBox
+    }
+}

@@ -1,3 +1,5 @@
+import { photographerFactory } from "../factories/factories.js"
+
 // Cette fonction me permet de récupérer dans le DOM la classe de la division 
 // ".photographer_section". La suite m'indique que pour chaque photographe pris dans le tableau,
 // on crée deux constantes associées à des fonctions. Ces deux fonctions (la deuxième imbriquée
@@ -6,7 +8,7 @@
 // la constante userCardDOM comme enfant de la constante photographersSection. En bref, cette fonction 
 // est une tradcution des fonctions de notre design pattern factory en constantes.
 // Elle lie le DPF à notre code Javascript principal.
-import { add } from "./utils.js";
+
 
 function displayData(photographers) {
     const photographersSection = document.querySelector(".photographer_section");
@@ -16,7 +18,7 @@ function displayData(photographers) {
         const userCardDOM = photographerModel.getUserCardDOM();
         photographersSection.appendChild(userCardDOM);
     });
-};
+}
 
 // J'ai englobé le code existant dans le fetch car j'avais besoin d'aller chercher les infos dans le json.
 // Le 2ème then ayant pour paramètre res2, englobe la fonction init, point de départ de toutes les autres.
@@ -39,16 +41,17 @@ fetch("../data/photographers.json")
         function init() {
             const { photographers } = res2;
             displayData(photographers);
-        };
+        }
 
         init();
 
     })
     .catch(function (err) {
+        console.log(err)
 
     });
 
-add(2, 3);
+
 
 
 

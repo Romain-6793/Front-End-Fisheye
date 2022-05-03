@@ -11,11 +11,13 @@
 
 <body>
   <header>
-    <img src="assets/images/logo.png" class="logo" />
+    <a href="index.html">
+      <img src="assets/images/logo.png" class="logo" />
+    </a>
   </header>
   <main id="main">
     <div class="photograph-header">
-      <button class="contact_button" id="cbtn" onclick="displayModal()">Contactez-moi</button>
+      <button class="contact_button" id="cbtn">Contactez-moi</button>
     </div>
     <div id="div_select" class="div_select">
       <label for="div_select" class="label_select">Trier par</label>
@@ -31,7 +33,7 @@
     <div class="modal">
       <header>
         <h2>Contactez-moi</h2>
-        <img src="assets/icons/close.svg" onclick="closeModal()" />
+        <img src="assets/icons/close.svg" class="close" />
       </header>
       <form>
         <div class="formData" id="formData1" data-error="false" data-error-visible="false">
@@ -66,57 +68,13 @@
       </header>
     </div>
   </div>
+
   <div id="lightbox_modal">
-    <ul class="carousel">
-      <img src="assets/icons/close.svg" onclick="closeLB()" />
-      <li class="carousel-item item-0">
-        <div role="button" class="controls controls-left">
-          <span class="img prev-image">
-            <i class="fa fa-arrow-circle-left"></i>
-          </span>
-        </div>
-        <div role="button" class="controls controls-right">
-          <span class="img next-image">
-            <i class="fa fa-arrow-circle-right"></i>
-          </span>
-        </div>
-        <div class="caroussel-picture">
-        </div>
-      </li>
-      <li class="carousel-item item-1">
-        <div role="button" class="controls controls-left">
-          <span class="img prev-image">
-            <i class="fa fa-arrow-circle-left"></i>
-          </span>
-        </div>
-        <div role="button" class="controls controls-right">
-          <span class="img next-image">
-            <i class="fa fa-arrow-circle-right"></i>
-          </span>
-        </div>
-        <div class="caroussel-picture">
-        </div>
-      </li>
-      <li class="carousel-item item-2">
-        <!-- Mettre fontawesome ou mettre des svg ? -->
-        <div role="button" class="controls controls-left">
-          <span class="img prev-image">
-            <i class="fa fa-arrow-circle-left"></i>
-          </span>
-        </div>
-        <div role="button" class="controls controls-right">
-          <span class="img next-image">
-            <i class="fa fa-arrow-circle-right"></i>
-          </span>
-        </div>
-        <div class="caroussel-picture">
-        </div>
-      </li>
-    </ul>
   </div>
-  <script src="scripts/factories/factories.js"></script>
-  <script src="scripts/pages/photographer.js"></script>
-  <script src="/scripts/utils/contactForm.js"></script>
+  <!-- <script type="module" src="scripts/factories/factories.js"></script> -->
+  <script type="module" src="scripts/pages/photographer.js"></script>
+  <!-- <script type="module" src="/scripts/utils/contactForm.js"></script>
+    <script type="module" src="/scripts/utils/lightbox.js" async></script> -->
 </body>
 
 </html>

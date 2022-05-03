@@ -2,9 +2,15 @@
 const sendButton = document.querySelectorAll(".send_button");
 const modalbg = document.getElementById("contact_modal");
 const modalbg2 = document.getElementById("confirm_modal");
+const close1 = document.querySelectorAll(".close");
 const close2 = document.querySelectorAll(".close2");
+const modalButton = document.getElementById("cbtn");
 
+
+
+modalButton.forEach((button) => button.addEventListener("click", displayModal));
 sendButton.forEach((button) => button.addEventListener("click", launchSubmit));
+close1.forEach((button) => button.addEventListener("click", closeModal));
 close2.forEach((button) => button.addEventListener("click", () => {
     document.forms[0].reset();
     closeModal2();
@@ -64,7 +70,7 @@ function isMyLastNameTrue(myLastName) {
 }
 
 function isMailTrue(myMail) {
-    if (myMail.match(/^[a-zA-Z0-9_+\.]+@[a-zA-Z0-9]+\.[a-z]+$/)) {
+    if (myMail.match(/^[a-zA-Z0-9_+.]+@[a-zA-Z0-9]+.[a-z]+$/)) {
         rightMail = true;
         document.getElementById("formData3").setAttribute("data-error", "false");
         document.getElementById("formData3").setAttribute("data-error-visible", "false");
@@ -101,7 +107,7 @@ function launchSubmit(e) {
     const messageData = document.querySelector(".input_message").value;
     isMyMessageCorrect(messageData);
 
-    if ((rightFirstName) && (rightLastName) && (rightMail)) {
+    if ((rightFirstName) && (rightLastName) && (rightMail) && (rightMessage)) {
         modalbg.style.display = "none";
         modalbg2.style.display = "block";
     }

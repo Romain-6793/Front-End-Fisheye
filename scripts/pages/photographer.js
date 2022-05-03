@@ -1,8 +1,11 @@
+import { bannerFactory, galleryFactory, priceFactory, displayTotalLikes, getTotaLikes, lightBoxFactory } from "../factories/factories.js"
 
 
 
 let selectedPhotos = [];
-let photographers = [];
+
+
+
 
 // Cette fonction me permet de récupérer dans le DOM la classe de la division 
 // ".photograph-header". La suite m'indique que pour chaque photographe 
@@ -24,7 +27,7 @@ function displayBanner(photographers) {
         const userBanner = photographersBanner2.getUserBanner();
         photographersBanner.appendChild(userBanner);
     });
-};
+}
 
 // Cette fonction est la même que pour la précédente, mais au lieu de récupérer les informations 
 // des photographes, je récupère leurs photos. Petite différence, je dois créer de toutes pièces
@@ -32,6 +35,8 @@ function displayBanner(photographers) {
 // balise, la gallery-section .
 
 function displayGallery(media) {
+
+    console.log(media)
 
     const photoSection0 = document.getElementById("main");
     const userSection0 = document.createElement("section");
@@ -46,7 +51,28 @@ function displayGallery(media) {
 
 
 
-};
+}
+
+
+
+function displayLightBox(selectedPhotos) {
+
+
+    const lightBox = document.getElementById("lightbox_modal");
+
+
+    console.log(selectedPhotos);
+
+    selectedPhotos.forEach((photo) => {
+        const lightBox2 = lightBoxFactory(photo);
+        const userLightBox = lightBox2.getUserLightBox();
+        console.log(userLightBox);
+        lightBox.appendChild(userLightBox);
+    });
+
+
+}
+
 
 // Cette fonction permet de supprimer la gallerie lorsqu'un tri s'effectue, avant d'en afficher une nouvelle
 // correspondant au tri effectué.
@@ -67,7 +93,7 @@ function displayLikes(photographers) {
         const totalLikes = getTotaLikes(photographer);
         displayTotalLikes(totalLikes);
     });
-};
+}
 
 function displayPrice(photographers) {
 
@@ -76,25 +102,25 @@ function displayPrice(photographers) {
         price2.getUserPrice();
 
     });
-};
+}
 
 // Les trois fonctions qui suivent me permettent de trier par popularité, date ou titre les photos qui
 // vont s'afficher (elles mêmes étant des composants de la variable-tableau selectedPhotos).
 
 function sortByPopularity(selectedPhotos) {
-    // console.log("tableau likes trié", selectedPhotos.sort((a, b) => {
-    //     a = a.likes;
-    //     b = b.likes;
-    //     if (a - b > 0) {
-    //         return -1;
-    //     }
-    //     if (a - b < 0) {
-    //         return 1;
-    //     }
-    //     if (a - b === 0) {
-    //         return 0;
-    //     }
-    // }));
+    console.log("tableau likes trié", selectedPhotos.sort((a, b) => {
+        a = a.likes;
+        b = b.likes;
+        if (a - b > 0) {
+            return -1;
+        }
+        if (a - b < 0) {
+            return 1;
+        }
+        if (a - b === 0) {
+            return 0;
+        }
+    }));
 
     clearGallery();
 
@@ -115,20 +141,20 @@ function sortByPopularity(selectedPhotos) {
 }
 
 function sortByDate(selectedPhotos) {
-    // console.log("tableau dates trié", selectedPhotos.sort((a, b) => {
-    //     a = a.date;
-    //     b = b.date;
+    console.log("tableau dates trié", selectedPhotos.sort((a, b) => {
+        a = a.date;
+        b = b.date;
 
-    //     if (a > b) {
-    //         return -1;
-    //     }
-    //     if (a < b) {
-    //         return 1;
-    //     }
-    //     if (a === b) {
-    //         return a.date - b.date;
-    //     }
-    // }));
+        if (a > b) {
+            return -1;
+        }
+        if (a < b) {
+            return 1;
+        }
+        if (a === b) {
+            return a.date - b.date;
+        }
+    }));
 
     clearGallery();
 
@@ -150,20 +176,20 @@ function sortByDate(selectedPhotos) {
 }
 
 function sortByTitle(selectedPhotos) {
-    // console.log("tableau titre trié", selectedPhotos.sort((a, b) => {
-    //     a = a.title;
-    //     b = b.title;
+    console.log("tableau titre trié", selectedPhotos.sort((a, b) => {
+        a = a.title;
+        b = b.title;
 
-    //     if (a < b) {
-    //         return -1;
-    //     }
-    //     if (a > b) {
-    //         return 1;
-    //     }
-    //     if (a === b) {
-    //         return a.date - b.date;
-    //     }
-    // }));
+        if (a < b) {
+            return -1;
+        }
+        if (a > b) {
+            return 1;
+        }
+        if (a === b) {
+            return a.date - b.date;
+        }
+    }));
 
     clearGallery();
 
@@ -204,6 +230,18 @@ function launchSortPhotos() {
             sortByTitle(selectedPhotos);
         }
     })
+
+}
+
+function photoListener() {
+    const photoLink = document.querySelectorAll(".photo_link");
+    console.log(photoLink);
+    photoLink.forEach((a) => a.addEventListener("click", displayLightBox))
+
+    // photoLink.forEach((a) => a.addEventListener("click", (e) => {
+    //     e.preventDefault()
+    //     displayLightBox()
+    // }))
 
 }
 
@@ -283,20 +321,15 @@ fetch("../data/photographers.json")
             displayLikes([photographers]);
             displayPrice([photographers]);
             launchSortPhotos(selectedPhotos);
-        };
+            photoListener(selectedPhotos);
+            // displayLightBox(selectedPhotos);
+        }
 
         init();
 
     })
     .catch(function (err) {
+        console.log(err)
 
     });
-
-
-
-
-
-
-
-
 

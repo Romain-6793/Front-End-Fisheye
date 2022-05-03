@@ -1,4 +1,4 @@
-#contact_modal, #confirm_modal, #lightbox_modal {
+#contact_modal, #confirm_modal {
   display: none;
   position: fixed;
   z-index: 1;
@@ -9,6 +9,20 @@
   overflow: auto;
   background-color: rgba(220, 220, 220, 0.4);
 }
+
+#lightbox_modal
+{
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+  background-color: #fff;
+}
+
 
 .photograph-header {
   background-color: #fafafa;
@@ -96,8 +110,8 @@
 }
 
 .gallery_section article img, .gallery_section article video {
-  height: 370px;
-  width: 370px;
+  height: 300px;
+  width: 350px;
   object-fit: cover;
 }
 
@@ -111,7 +125,7 @@
   height: 50px;
   position: absolute;
   bottom: 65px;
-  left: 310px;
+  left: 295px;
   display: flex;
   flex-flow: row wrap;
 }
@@ -138,7 +152,7 @@ img.liking_button {
 
 
 .likes_popup {
-  width: 400px;
+  width: 350px;
   height: 50px;
   background-color: #D3573C;
   border-radius: 5px 5px 0 0;
@@ -148,6 +162,32 @@ img.liking_button {
   bottom: -5px;
   position: fixed;
 
+}
+
+.likes_position {
+  position: relative;
+}
+
+.likes_div, .price_span {
+  position: absolute;
+  top: 13px;
+}
+
+.likes_div{
+  left: 25px;
+}
+
+.likes_icon
+{
+  position: absolute;
+  left: 45px;
+  top: 2px;
+}
+
+.price_span 
+{
+  left: 240px;
+  
 }
 
 .modal {
