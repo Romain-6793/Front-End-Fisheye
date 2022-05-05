@@ -334,14 +334,6 @@ input[data-error="true"]::after {
   position: relative;
 }
 
-.container_flex
-{
-  width: 500%;
-  display: flex;
-  flex-flow: row nowrap;
-  
-}
-
 .carousel__next, .carousel__prev {
   width: 40px;
   height: 40px;
@@ -385,16 +377,17 @@ input[data-error="true"]::after {
   
 }
 
-.container_flex article {
-  width: 5%;
+.carousel_window article {
+  width: 100%;
   border: 1px solid black;
 }
 
-.container_flex article img, .container_flex article video {
-  /* width: 75px;
-  height: 50px; */
+.carousel_window article img, .carousel_window article video {
   width: 100%;
   height: 900px;
   object-fit: cover;
 }
 
+.carousel_window article h3 {
+  margin-top: 10px;
+}

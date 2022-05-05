@@ -88,9 +88,7 @@ function displayLightBox() {
     closeLightbox.setAttribute("class", "close_lightbox");
     const carouselWindow = document.createElement("div");
     carouselWindow.setAttribute("class", "carousel_window");
-    const containerFlex = document.createElement("div");
-    containerFlex.setAttribute("class", "container_flex");
-    containerFlex.setAttribute("id", "container_flex");
+
 
     lightBox.appendChild(lightBoxFlex);
     lightBoxFlex.appendChild(carouselBox);
@@ -98,7 +96,7 @@ function displayLightBox() {
     carouselBox.appendChild(carouselNext);
     carouselBox.appendChild(closeLightbox);
     carouselBox.appendChild(carouselWindow);
-    carouselWindow.appendChild(containerFlex);
+
 
 
 
@@ -106,7 +104,7 @@ function displayLightBox() {
         const lightBox2 = lightBoxFactory(photo);
         const userLightBox = lightBox2.getUserLightBox();
         // console.log(userLightBox);
-        containerFlex.appendChild(userLightBox);
+        carouselWindow.appendChild(userLightBox);
     });
 
     createCarousel();
