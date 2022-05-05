@@ -80,12 +80,15 @@ function displayLightBox() {
     lightBoxFlex.setAttribute("id", "lightbox_flex");
     const carouselBox = document.createElement("div");
     carouselBox.setAttribute("id", "carousel_box");
-    const carouselPrev = document.createElement("div");
-    carouselPrev.setAttribute("class", "carousel__prev");
-    const carouselNext = document.createElement("div");
-    carouselNext.setAttribute("class", "carousel__next");
-    const closeLightbox = document.createElement("div");
+    const carouselPrev = document.createElement("img");
+    carouselPrev.setAttribute("class", "carousel_prev");
+    carouselPrev.setAttribute("src", "../assets/icons/left-arrow.svg");
+    const carouselNext = document.createElement("img");
+    carouselNext.setAttribute("class", "carousel_next");
+    carouselNext.setAttribute("src", "../assets/icons/right-arrow.svg");
+    const closeLightbox = document.createElement("img");
     closeLightbox.setAttribute("class", "close_lightbox");
+    closeLightbox.setAttribute("src", "../assets/icons/close-lightbox.svg");
     const carouselWindow = document.createElement("div");
     carouselWindow.setAttribute("class", "carousel_window");
 
