@@ -4,7 +4,7 @@ const modalbg = document.getElementById("contact_modal");
 const modalbg2 = document.getElementById("confirm_modal");
 const close1 = document.querySelectorAll(".close");
 const close2 = document.querySelectorAll(".close2");
-const modalButton = document.getElementById("cbtn");
+const modalButton = document.querySelectorAll(".contact_button");
 
 
 
@@ -26,6 +26,7 @@ function displayModal() {
     modal.style.display = "block";
     const likesPopup = document.getElementById("likes_popup");
     likesPopup.style.display = "none";
+
 }
 
 function closeModal() {

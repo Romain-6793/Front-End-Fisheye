@@ -73,6 +73,7 @@ export function photographerFactory(data) {
         const span = document.createElement('span');
         const p = document.createElement('p');
         const a = document.createElement('a');
+        a.setAttribute("tabindex", 0);
         h2.textContent = name;
         h3.textContent = `${city}, ${country}`;
         h4.textContent = tagline;
@@ -118,7 +119,7 @@ export function bannerFactory(data) {
         const h2 = document.createElement('h2');
         const h3 = document.createElement('h3');
         const h4 = document.createElement('h4');
-        const btn = document.getElementById('cbtn');
+        const btn = document.getElementById('contact_button');
         h2.textContent = name;
         h3.textContent = `${city}, ${country}`;
         h4.textContent = tagline;
@@ -168,6 +169,7 @@ export function galleryFactory(data) {
             img.setAttribute("src", picture);
         }
         photolink.classList.add("photo_link");
+        photolink.setAttribute("tabindex", 0);
         const h3 = document.createElement('h3');
         const h3_2 = document.createElement('h3');
         h3_2.classList.add("number_of_likes");
@@ -176,6 +178,7 @@ export function galleryFactory(data) {
         div2.classList.add("likes_and_button");
         const likingButton = document.createElement('img');
         likingButton.classList.add("liking_button");
+        likingButton.setAttribute("tabindex", 0);
         likingButton.setAttribute("src", "../assets/icons/heart.svg");
         // const span = document.createElement("span");
         article.appendChild(div);
@@ -250,8 +253,8 @@ export function lightBoxFactory(data) {
 
     const picture = `assets/photographers/${image}`;
     const movie = `assets/photographers/${video}`;
-    // const lightBox = document.getElementById("lightbox_modal");
-    // lightBox.style.display = "block";
+    const lightBox = document.getElementById("lightbox_modal");
+    lightBox.style.display = "block";
 
 
     // for (let i = 0; i < data.length; i++) {
@@ -262,7 +265,8 @@ export function lightBoxFactory(data) {
     function getUserLightBox() {
 
 
-        const container = document.createElement("div");
+
+
         const article = document.createElement('article');
         if (video) {
             const video = document.createElement('video');
@@ -270,19 +274,21 @@ export function lightBoxFactory(data) {
             video.setAttribute("src", movie);
             video.setAttribute("controls", "width 250");
             video.setAttribute("type", "video/mp4");
+            video.setAttribute("class", "lightbox_video");
         } else {
             const img = document.createElement('img');
             article.appendChild(img);
             img.setAttribute("src", picture);
+            img.setAttribute("class", "lightbox_img");
         }
         const h3 = document.createElement('h3');
         const div = document.createElement('div');
-        container.appendChild(article)
+
         article.appendChild(div);
         div.appendChild(h3);
         h3.textContent = title;
 
-
+        return article;
     }
 
     return {

@@ -1,10 +1,9 @@
-import { bannerFactory, galleryFactory, priceFactory, displayTotalLikes, getTotaLikes, lightBoxFactory } from "../factories/factories.js"
 
+import { bannerFactory, galleryFactory, priceFactory, displayTotalLikes, getTotaLikes, lightBoxFactory } from "../factories/factories.js"
+import { createCarousel } from "../utils/lightbox.js"
 
 
 let selectedPhotos = [];
-
-
 
 
 // Cette fonction me permet de récupérer dans le DOM la classe de la division 
@@ -36,8 +35,6 @@ function displayBanner(photographers) {
 
 function displayGallery(media) {
 
-    console.log(media)
-
     const photoSection0 = document.getElementById("main");
     const userSection0 = document.createElement("section");
     photoSection0.appendChild(userSection0);
@@ -53,27 +50,6 @@ function displayGallery(media) {
 
 }
 
-
-
-function displayLightBox(selectedPhotos) {
-
-
-    const lightBox = document.getElementById("lightbox_modal");
-
-
-    console.log(selectedPhotos);
-
-    selectedPhotos.forEach((photo) => {
-        const lightBox2 = lightBoxFactory(photo);
-        const userLightBox = lightBox2.getUserLightBox();
-        console.log(userLightBox);
-        lightBox.appendChild(userLightBox);
-    });
-
-
-}
-
-
 // Cette fonction permet de supprimer la gallerie lorsqu'un tri s'effectue, avant d'en afficher une nouvelle
 // correspondant au tri effectué.
 
@@ -81,6 +57,84 @@ function clearGallery() {
     const userSection0 = document.querySelector(".gallery_section");
     document.getElementById("main").removeChild(userSection0);
 }
+
+// Cette fonction permet de supprimer la lightbox lorsque je choisis de la fermer
+// , avant d'en afficher une nouvelle lorsque je clique sur un lien photo. 
+
+function clearLightBox() {
+    const LightBoxFlex = document.getElementById("lightbox_flex");
+    document.getElementById("lightbox_modal").removeChild(LightBoxFlex);
+}
+
+
+function displayLightBox() {
+
+    // Ici , pas besoin de mettre selectedPhotos en paramètres, au contraire, cela va modifier la référence
+    // et selectedPhotos ne sera plus le tableau dont j'ai besoin.
+
+    const lightBox = document.getElementById("lightbox_modal");
+    lightBox.style.display = "block";
+    const likesPopup = document.getElementById("likes_popup");
+    likesPopup.style.display = "none";
+    const lightBoxFlex = document.createElement("div");
+    lightBoxFlex.setAttribute("id", "lightbox_flex");
+    const carouselBox = document.createElement("div");
+    carouselBox.setAttribute("id", "carousel_box");
+    const carouselPrev = document.createElement("div");
+    carouselPrev.setAttribute("class", "carousel__prev");
+    const carouselNext = document.createElement("div");
+    carouselNext.setAttribute("class", "carousel__next");
+    const closeLightbox = document.createElement("div");
+    closeLightbox.setAttribute("class", "close_lightbox");
+    const carouselWindow = document.createElement("div");
+    carouselWindow.setAttribute("class", "carousel_window");
+    const containerFlex = document.createElement("div");
+    containerFlex.setAttribute("class", "container_flex");
+    containerFlex.setAttribute("id", "container_flex");
+
+    lightBox.appendChild(lightBoxFlex);
+    lightBoxFlex.appendChild(carouselBox);
+    carouselBox.appendChild(carouselPrev);
+    carouselBox.appendChild(carouselNext);
+    carouselBox.appendChild(closeLightbox);
+    carouselBox.appendChild(carouselWindow);
+    carouselWindow.appendChild(containerFlex);
+
+
+
+    selectedPhotos.forEach((photo) => {
+        const lightBox2 = lightBoxFactory(photo);
+        const userLightBox = lightBox2.getUserLightBox();
+        // console.log(userLightBox);
+        containerFlex.appendChild(userLightBox);
+    });
+
+    createCarousel();
+
+    // ===================================================================================
+    // Trouver un moyen de dissocier ce code...
+
+    const closeLightboxBtn = document.querySelectorAll(".close_lightbox");
+
+    closeLightboxBtn.forEach((btn) => btn.addEventListener("click", closeLightBox))
+
+    function closeLightBox() {
+
+        lightBox.style.display = "none";
+        const likesPopup = document.getElementById("likes_popup");
+        likesPopup.style.display = "block";
+
+        clearLightBox();
+
+    }
+
+    // ======================================================================================
+
+}
+
+
+
+
 
 
 // Les deux fonctions qui suivent permettent d'afficher respectivement le nombre total de likes et le prix
@@ -234,6 +288,9 @@ function launchSortPhotos() {
 }
 
 function photoListener() {
+
+    // Ici , pas besoin de passer de paramètre puisque le contenu de ma fonction est indépendant.
+
     const photoLink = document.querySelectorAll(".photo_link");
     console.log(photoLink);
     photoLink.forEach((a) => a.addEventListener("click", displayLightBox))
@@ -294,6 +351,7 @@ fetch("../data/photographers.json")
             const params = new URLSearchParams(url.search);
             const photographerId2 = Number(params.get("id"));
             selectedPhotos = photos.filter((elem) => {
+                //TODO: photographId2 et elem.photographerId sont ils identiques ?
                 if (photosId === photographerId2) {
                     return elem.photographerId === photosId;
                 }
@@ -322,7 +380,6 @@ fetch("../data/photographers.json")
             displayPrice([photographers]);
             launchSortPhotos(selectedPhotos);
             photoListener(selectedPhotos);
-            // displayLightBox(selectedPhotos);
         }
 
         init();
