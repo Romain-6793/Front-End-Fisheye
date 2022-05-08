@@ -264,7 +264,7 @@ class Carousel {
 // J'ai retiré l'EL DOMContentLoaded pour le test, cela peut venir de là...
 
 
-export function createCarousel() {
+export function createCarousel(idx = 0) {
 
 
     const myCarousel = new Carousel(document.querySelector(".carousel_window"), {
@@ -273,6 +273,8 @@ export function createCarousel() {
         loop: true
 
     })
+    window.carou = myCarousel;
+    myCarousel.goToItem(idx)
     console.log(myCarousel);
     console.log(myCarousel.element);
 }

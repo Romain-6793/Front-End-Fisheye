@@ -4,6 +4,9 @@ import { createCarousel } from "../utils/lightbox.js"
 
 
 let selectedPhotos = [];
+let mediaList = [];
+
+
 
 
 // Cette fonction me permet de récupérer dans le DOM la classe de la division 
@@ -44,6 +47,7 @@ function displayGallery(media) {
         const photoSection2 = galleryFactory(photo);
         const userPictures = photoSection2.getUserPictures();
         photoSection.appendChild(userPictures);
+        mediaList.push(photoSection2);
     });
 
 
@@ -67,7 +71,7 @@ function clearLightBox() {
 }
 
 
-function displayLightBox() {
+function displayLightBox(index = 0) {
 
     // Ici , pas besoin de mettre selectedPhotos en paramètres, au contraire, cela va modifier la référence
     // et selectedPhotos ne sera plus le tableau dont j'ai besoin.
@@ -110,7 +114,7 @@ function displayLightBox() {
         carouselWindow.appendChild(userLightBox);
     });
 
-    createCarousel();
+    createCarousel(index);
 
     // ===================================================================================
     // Trouver un moyen de dissocier ce code...
@@ -162,8 +166,9 @@ function displayPrice(photographers) {
 // Les trois fonctions qui suivent me permettent de trier par popularité, date ou titre les photos qui
 // vont s'afficher (elles mêmes étant des composants de la variable-tableau selectedPhotos).
 
-function sortByPopularity(selectedPhotos) {
-    console.log("tableau likes trié", selectedPhotos.sort((a, b) => {
+function sortByPopularity(mediaList) {
+    console.log(mediaList)
+    console.log("tableau likes trié", mediaList.sort((a, b) => {
         a = a.likes;
         b = b.likes;
         if (a - b > 0) {
@@ -179,7 +184,7 @@ function sortByPopularity(selectedPhotos) {
 
     clearGallery();
 
-    displayGallery(selectedPhotos.sort((a, b) => {
+    displayGallery(mediaList.sort((a, b) => {
         a = a.likes;
         b = b.likes;
         if (a - b > 0) {
@@ -195,8 +200,8 @@ function sortByPopularity(selectedPhotos) {
 
 }
 
-function sortByDate(selectedPhotos) {
-    console.log("tableau dates trié", selectedPhotos.sort((a, b) => {
+function sortByDate(mediaList) {
+    console.log("tableau dates trié", mediaList.sort((a, b) => {
         a = a.date;
         b = b.date;
 
@@ -213,7 +218,7 @@ function sortByDate(selectedPhotos) {
 
     clearGallery();
 
-    displayGallery(selectedPhotos.sort((a, b) => {
+    displayGallery(mediaList.sort((a, b) => {
         a = a.date;
         b = b.date;
 
@@ -230,8 +235,8 @@ function sortByDate(selectedPhotos) {
 
 }
 
-function sortByTitle(selectedPhotos) {
-    console.log("tableau titre trié", selectedPhotos.sort((a, b) => {
+function sortByTitle(mediaList) {
+    console.log("tableau titre trié", mediaList.sort((a, b) => {
         a = a.title;
         b = b.title;
 
@@ -248,7 +253,7 @@ function sortByTitle(selectedPhotos) {
 
     clearGallery();
 
-    displayGallery(selectedPhotos.sort((a, b) => {
+    displayGallery(mediaList.sort((a, b) => {
         a = a.title;
         b = b.title;
 
@@ -294,7 +299,7 @@ function photoListener() {
 
     const photoLink = document.querySelectorAll(".photo_link");
     console.log(photoLink);
-    photoLink.forEach((a) => a.addEventListener("click", displayLightBox))
+    photoLink.forEach((a, index) => a.addEventListener("click", () => displayLightBox(index)))
 
     // photoLink.forEach((a) => a.addEventListener("click", (e) => {
     //     e.preventDefault()
