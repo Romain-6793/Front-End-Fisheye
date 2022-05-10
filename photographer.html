@@ -1,9 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 
 <head>
   <link href="css/style.css" rel="stylesheet" type="text/css" />
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Accédez au portfolio de nos meilleurs photographes">
   <link rel="icon" type="image/png" href="assets/favicon.png">
   <link href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap" rel="stylesheet">
   <title>Fisheye - photographe </title>
@@ -11,66 +13,65 @@
 
 <body>
   <header>
-    <a href="index.html">
-      <img src="assets/images/logo.png" class="logo" />
+    <a href="index.html" aria-label="lien vers la page d'accueil">
+      <img src="assets/images/logo.png" class="logo" alt="logo du site Fisheye" />
     </a>
   </header>
   <main id="main">
-    <div class="photograph-header">
-      <button class="contact_button" id="contact_button">Contactez-moi</button>
-    </div>
-    <div id="div_select" class="div_select">
-      <label for="div_select" class="label_select">Trier par</label>
+    <section class="photograph-header" aria-label="bannière du photographe">
+      <button class="contact_button" id="contact_button" aria-label="bouton de contact">Contactez-moi</button>
+    </section>
+    <nav id="nav_select" class="nav_select" aria-label="menu de tri">
+      <label for="menu_select" class="label_select">Trier par</label>
       <select id="menu_select" class="menu_select">
         <option value="popularité">Popularité</option>
         <option value="date">Date</option>
         <option value="titre">Titre</option>
       </select>
-    </div>
-    <div id="likes_popup" class="likes_popup"></div>
+    </nav>
+    <aside id="likes_popup" class="likes_popup"></aside>
   </main>
-  <div id="contact_modal">
-    <div class="modal">
+  <article id="contact_modal" aria-label="formulaire de contact" aria-hidden="true">
+    <div class="modal" role="dialog">
       <header>
         <h2>Contactez-moi</h2>
-        <img src="assets/icons/close.svg" class="close" />
+        <button type="button" aria-label="fermer la page" class="close" tabindex="0">
+          <img src="assets/icons/close.svg" alt="" />
+        </button>
       </header>
       <form>
         <div class="formData" id="formData1" data-error="false" data-error-visible="false">
           <label>Prénom</label>
-          <input class="text_control firstname" />
+          <input class="text_control firstname" tabindex="0" />
         </div>
-
         <div class="formData" id="formData2" data-error="false" data-error-visible="false">
           <label>Nom</label>
-          <input class="text_control lastname" />
+          <input class="text_control lastname" tabindex="0" />
         </div>
         <div class="formData" id="formData3" data-error="false" data-error-visible="false">
           <label>Email</label>
-          <input class="text_control mailadress" />
+          <input class="text_control mailadress" tabindex="0" />
         </div>
         <div class="formData" id="formData4" data-error="false" data-error-visible="false">
           <label>Votre message</label>
-          <textarea name="Message" class="text_control input_message" id="message" title="write message"
+          <textarea name="Message" class="text_control input_message" id="message" title="write message" tabindex="0"
             autofocus></textarea>
         </div>
-        <button type="submit" class="send_button" id="send_button">Envoyer</button>
+        <button type="submit" class="send_button" id="send_button" aria-label="envoyer le formulaire"
+          tabindex="0">Envoyer</button>
       </form>
     </div>
-  </div>
-  <div id="confirm_modal">
-    <div class="modal">
-      <header>
-        <div class="modal2">
-          <img src="assets/icons/close.svg" class="close2" />
-          <h2 class="thanks">Merci, votre message a été envoyé avec succès !</h2>
-        </div>
-      </header>
+  </article>
+  <article id="confirm_modal" aria-label="popup de confirmation" aria-hidden="true">
+    <div class="modal modal2" role="dialog">
+      <button type="button" class="close2" aria-label="fermer la page"><img src="assets/icons/close.svg"
+          alt="" /></button>
+      <h2 class="thanks">Merci, votre message a été envoyé avec succès !</h2>
     </div>
-  </div>
+  </article>
 
-  <div id="lightbox_modal">
-  </div>
+  <article id="lightbox_modal" aria-label="carousel de photos" aria-hidden="true">
+  </article>
   <!-- <script type="module" src="scripts/factories/factories.js"></script> -->
   <script type="module" src="/scripts/pages/photographer.js"></script>
   <script type="module" src="/scripts/utils/contactForm.js"></script>

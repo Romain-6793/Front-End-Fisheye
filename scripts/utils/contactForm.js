@@ -8,6 +8,7 @@ const modalButton = document.querySelectorAll(".contact_button");
 
 
 
+
 modalButton.forEach((button) => button.addEventListener("click", displayModal));
 sendButton.forEach((button) => button.addEventListener("click", launchSubmit));
 close1.forEach((button) => button.addEventListener("click", closeModal));
@@ -23,7 +24,18 @@ let rightMessage;
 
 function displayModal() {
     const modal = document.getElementById("contact_modal");
+    const gallery = document.querySelector(".gallery_section")
+    const photoButton = document.querySelector(".photo_button")
+    const likingButton = document.querySelector(".liking_button")
     modal.style.display = "block";
+    modal.setAttribute("aria-hidden", "false")
+    gallery.setAttribute("aria-hidden", "true")
+    photoButton.setAttribute("aria-hidden", "true")
+    likingButton.setAttribute("aria-hidden", "true")
+    photoButton.removeAttribute("tabindex")
+    likingButton.removeAttribute("tabindex")
+
+
     const likesPopup = document.getElementById("likes_popup");
     likesPopup.style.display = "none";
 
@@ -31,16 +43,34 @@ function displayModal() {
 
 function closeModal() {
     const modal = document.getElementById("contact_modal");
+    const gallery = document.querySelector(".gallery_section")
+    const photoButton = document.querySelector(".photo_button")
+    const likingButton = document.querySelector(".liking_button")
     modal.style.display = "none";
+    modal.setAttribute("aria-hidden", "true")
     const likesPopup = document.getElementById("likes_popup");
     likesPopup.style.display = "block";
+    gallery.setAttribute("aria-hidden", "false")
+    photoButton.setAttribute("aria-hidden", "false")
+    likingButton.setAttribute("aria-hidden", "false")
+    photoButton.setAttribute("tabindex", "0")
+    likingButton.setAttribute("tabindex", "0")
 }
 
 function closeModal2() {
     const modal = document.getElementById("confirm_modal");
+    const gallery = document.querySelector(".gallery_section")
+    const photoButton = document.querySelector(".photo_button")
+    const likingButton = document.querySelector(".liking_button")
     modal.style.display = "none";
+    modal.setAttribute("aria-hidden", "true")
     const likesPopup = document.getElementById("likes_popup");
     likesPopup.style.display = "block";
+    gallery.setAttribute("aria-hidden", "false")
+    photoButton.setAttribute("aria-hidden", "false")
+    likingButton.setAttribute("aria-hidden", "false")
+    photoButton.setAttribute("tabindex", "0")
+    likingButton.setAttribute("tabindex", "0")
 }
 
 function isMyFirstNameTrue(myFirstName) {
@@ -110,7 +140,9 @@ function launchSubmit(e) {
 
     if ((rightFirstName) && (rightLastName) && (rightMail) && (rightMessage)) {
         modalbg.style.display = "none";
+        modalbg.setAttribute("aria-hidden", "true")
         modalbg2.style.display = "block";
+        modalbg2.setAttribute("aria-hidden", "false")
     }
 
 }

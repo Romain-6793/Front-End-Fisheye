@@ -10,7 +10,7 @@ import { photographerFactory } from "../factories/factories.js"
 // Elle lie le DPF à notre code Javascript principal.
 
 
-function displayData(photographers) {
+function displaySection(photographers) {
     const photographersSection = document.querySelector(".photographer_section");
 
     photographers.forEach((photographer) => {
@@ -40,7 +40,7 @@ fetch("../data/photographers.json")
 
         function init() {
             const { photographers } = res2;
-            displayData(photographers);
+            displaySection(photographers);
         }
 
         init();

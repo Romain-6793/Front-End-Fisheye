@@ -42,6 +42,7 @@ function displayGallery(media) {
     const userSection0 = document.createElement("section");
     photoSection0.appendChild(userSection0);
     userSection0.classList.add("gallery_section");
+    userSection0.setAttribute("aria-hidden", "false");
     const photoSection = document.querySelector(".gallery_section");
     media.forEach((photo) => {
         const photoSection2 = galleryFactory(photo);
@@ -76,23 +77,49 @@ function displayLightBox(index = 0) {
     // Ici , pas besoin de mettre selectedPhotos en paramètres, au contraire, cela va modifier la référence
     // et selectedPhotos ne sera plus le tableau dont j'ai besoin.
 
+    const gallery = document.querySelector(".gallery_section")
+    const photoButton = document.querySelector(".photo_button")
+    const likingButton = document.querySelector(".liking_button")
+
     const lightBox = document.getElementById("lightbox_modal");
     lightBox.style.display = "block";
+    lightBox.setAttribute("aria-hidden", "false")
     const likesPopup = document.getElementById("likes_popup");
     likesPopup.style.display = "none";
     const lightBoxFlex = document.createElement("div");
     lightBoxFlex.setAttribute("id", "lightbox_flex");
     const carouselBox = document.createElement("div");
     carouselBox.setAttribute("id", "carousel_box");
-    const carouselPrev = document.createElement("img");
+    const carouselPrev = document.createElement("button")
+    carouselPrev.setAttribute("type", "button")
     carouselPrev.setAttribute("class", "carousel_prev");
-    carouselPrev.setAttribute("src", "../assets/icons/left-arrow.svg");
-    const carouselNext = document.createElement("img");
+    carouselPrev.setAttribute("tabindex", "0");
+    carouselPrev.setAttribute("aria-label", "aller à l'image précédente")
+    const prevPicture = document.createElement("img");
+    prevPicture.setAttribute("src", "../assets/icons/left-arrow.svg");
+    prevPicture.setAttribute("class", "carousel_prev__picture");
+    prevPicture.setAttribute("alt", "");
+    carouselPrev.appendChild(prevPicture)
+    const carouselNext = document.createElement("button")
+    carouselNext.setAttribute("type", "button")
     carouselNext.setAttribute("class", "carousel_next");
-    carouselNext.setAttribute("src", "../assets/icons/right-arrow.svg");
-    const closeLightbox = document.createElement("img");
+    carouselNext.setAttribute("tabindex", "0");
+    carouselNext.setAttribute("aria-label", "aller à l'image suivante")
+    const nextPicture = document.createElement("img");
+    nextPicture.setAttribute("src", "../assets/icons/right-arrow.svg");
+    nextPicture.setAttribute("class", "carousel_next__picture");
+    nextPicture.setAttribute("alt", "");
+    carouselNext.appendChild(nextPicture)
+    const closeLightbox = document.createElement("button")
+    closeLightbox.setAttribute("type", "button")
     closeLightbox.setAttribute("class", "close_lightbox");
-    closeLightbox.setAttribute("src", "../assets/icons/close-lightbox.svg");
+    closeLightbox.setAttribute("tabindex", "0");
+    closeLightbox.setAttribute("aria-label", "fermer le carousel")
+    const closePicture = document.createElement("img");
+    closePicture.setAttribute("src", "../assets/icons/close-lightbox.svg");
+    prevPicture.setAttribute("class", "carousel_close__picture");
+    closePicture.setAttribute("alt", "");
+    closeLightbox.appendChild(closePicture)
     const carouselWindow = document.createElement("div");
     carouselWindow.setAttribute("class", "carousel_window");
 
@@ -103,6 +130,12 @@ function displayLightBox(index = 0) {
     carouselBox.appendChild(carouselNext);
     carouselBox.appendChild(closeLightbox);
     carouselBox.appendChild(carouselWindow);
+
+    gallery.setAttribute("aria-hidden", "true")
+    photoButton.setAttribute("aria-hidden", "true")
+    likingButton.setAttribute("aria-hidden", "true")
+    photoButton.removeAttribute("tabindex")
+    likingButton.removeAttribute("tabindex")
 
 
 
@@ -126,8 +159,15 @@ function displayLightBox(index = 0) {
     function closeLightBox() {
 
         lightBox.style.display = "none";
+        lightBox.setAttribute("aria-hidden", "true")
         const likesPopup = document.getElementById("likes_popup");
         likesPopup.style.display = "block";
+
+        gallery.setAttribute("aria-hidden", "false")
+        photoButton.setAttribute("aria-hidden", "false")
+        likingButton.setAttribute("aria-hidden", "false")
+        photoButton.setAttribute("tabindex", "0")
+        likingButton.setAttribute("tabindex", "0")
 
         clearLightBox();
 
@@ -297,9 +337,8 @@ function photoListener() {
 
     // Ici , pas besoin de passer de paramètre puisque le contenu de ma fonction est indépendant.
 
-    const photoLink = document.querySelectorAll(".photo_link");
-    console.log(photoLink);
-    photoLink.forEach((a, index) => a.addEventListener("click", () => displayLightBox(index)))
+    const photoButton = document.querySelectorAll(".photo_button");
+    photoButton.forEach((btn, index) => btn.addEventListener("click", () => displayLightBox(index)))
 
     // photoLink.forEach((a) => a.addEventListener("click", (e) => {
     //     e.preventDefault()

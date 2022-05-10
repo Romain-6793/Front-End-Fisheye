@@ -31,6 +31,7 @@ export function displayTotalLikes(total) {
     likesDiv.appendChild(totalLikesSpan);
     likesDiv.appendChild(likesIcon);
     likesIcon.setAttribute("src", "../assets/icons/heart2.svg");
+    likesIcon.setAttribute("alt", "")
     likesDiv.classList.add("likes_div");
     likesIcon.classList.add("likes_icon");
     totalLikesSpan.classList.add("total_likes_span");
@@ -67,13 +68,14 @@ export function photographerFactory(data) {
         const article = document.createElement('article');
         const img = document.createElement('img');
         img.setAttribute("src", picture)
+        img.setAttribute("alt", `photo de profil du photographe ${name}`)
         const h2 = document.createElement('h2');
         const h3 = document.createElement('h3');
         const h4 = document.createElement('h4');
         const span = document.createElement('span');
         const p = document.createElement('p');
         const a = document.createElement('a');
-        a.setAttribute("tabindex", 0);
+        a.setAttribute("tabindex", "0");
         h2.textContent = name;
         h3.textContent = `${city}, ${country}`;
         h4.textContent = tagline;
@@ -116,6 +118,7 @@ export function bannerFactory(data) {
         const div2 = document.createElement('div');
         const div3 = document.createElement('div');
         img.setAttribute("src", picture)
+        img.setAttribute("alt", `photo de profil du photographe ${name}`)
         const h2 = document.createElement('h2');
         const h3 = document.createElement('h3');
         const h4 = document.createElement('h4');
@@ -154,36 +157,44 @@ export function galleryFactory(data) {
 
     function getUserPictures() {
 
-        const photolink = document.createElement('a');
+        const photoButton = document.createElement('button');
         const article = document.createElement('article');
-        article.appendChild(photolink);
+        photoButton.classList.add("photo_button");
+        photoButton.setAttribute("type", "button");
+        photoButton.setAttribute("tabindex", "0");
+        photoButton.setAttribute("aria-label", "Cliquez pour voir le carousel");
+        article.appendChild(photoButton);
         if (video) {
             const video = document.createElement('video');
-            photolink.appendChild(video);
+            photoButton.appendChild(video);
             video.setAttribute("src", movie);
             video.setAttribute("controls", "width 250");
             video.setAttribute("type", "video/mp4");
+            video.setAttribute("alt", `${title}`)
         } else {
             const img = document.createElement('img');
-            photolink.appendChild(img);
+            photoButton.appendChild(img);
             img.setAttribute("src", picture);
+            img.setAttribute("alt", `${title}`)
         }
-        photolink.classList.add("photo_link");
-        photolink.setAttribute("tabindex", 0);
         const h3 = document.createElement('h3');
         const h3_2 = document.createElement('h3');
         h3_2.classList.add("number_of_likes");
         const div = document.createElement('div');
         const div2 = document.createElement('div');
         div2.classList.add("likes_and_button");
-        const likingButton = document.createElement('img');
+        const likingButton = document.createElement("button");
+        const likingHeart = document.createElement('img');
         likingButton.classList.add("liking_button");
-        likingButton.setAttribute("tabindex", 0);
-        likingButton.setAttribute("src", "../assets/icons/heart.svg");
-        // const span = document.createElement("span");
+        likingButton.setAttribute("tabindex", "0");
+        likingButton.setAttribute("type", "button");
+        likingButton.setAttribute("aria-label", "bouton j'aime")
+        likingHeart.setAttribute("src", "../assets/icons/heart.svg");
+        likingHeart.classList.add("liking_heart");
+        likingHeart.setAttribute("alt", "");
+        likingButton.appendChild(likingHeart);
         article.appendChild(div);
         div.appendChild(h3);
-        // div.appendChild(span);
         div.appendChild(div2);
         div2.appendChild(h3_2);
         div2.appendChild(likingButton);
@@ -275,11 +286,13 @@ export function lightBoxFactory(data) {
             video.setAttribute("controls", "width 250");
             video.setAttribute("type", "video/mp4");
             video.setAttribute("class", "lightbox_video");
+            video.setAttribute("alt", `${title}`)
         } else {
             const img = document.createElement('img');
             article.appendChild(img);
             img.setAttribute("src", picture);
             img.setAttribute("class", "lightbox_img");
+            img.setAttribute("alt", `${title}`)
         }
         const h3 = document.createElement('h3');
         const div = document.createElement('div');

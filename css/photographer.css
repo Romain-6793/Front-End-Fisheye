@@ -55,17 +55,7 @@
   cursor: pointer;
 }
 
-.gallery_section {
-  margin-left: 100px;
-  padding-top: 100px;
-  margin-right: 100px;
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: space-between;
-  position: relative;
-}
-
-.div_select {
+.nav_select {
   margin-left: 100px;
   margin-top: 5px;
   width: 100%;
@@ -87,6 +77,15 @@
   cursor: pointer;
 }
 
+.gallery_section {
+  margin-left: 100px;
+  padding-top: 100px;
+  margin-right: 100px;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  position: relative;
+}
 
 
 .gallery_section article img, .gallery_section article video {
@@ -128,14 +127,16 @@
  
 }
 
-img.liking_button {
+img.liking_heart {
   width: 30px!important;
   height: 30px!important;
 }
 
-.photo_link
+.photo_button, .liking_button
 {
   cursor: pointer;
+  border: none;
+  background: #fff;
 }
 
 
@@ -259,7 +260,7 @@ form input {
   content: attr(data-error);
   font-size: 17px;
   font-weight: bold;
-  color: red;
+  color: #901c1c;
   display: block;
   margin-top: 7px;
   margin-bottom: 7px;
@@ -272,13 +273,13 @@ form input {
   opacity: 1;
 }
 .formData[data-error-visible="true"] .text_control {
-  border: 2px solid red;
+  border: 2px solid #901c1c;
 }
 
 input[data-error="true"]::after {
   content: attr(data-error);
   font-size: 17px;
-  color: red;
+  color: #901c1c;
 }
 
 .modal2
@@ -286,19 +287,26 @@ input[data-error="true"]::after {
   position: relative;
 }
 
+.close, .close2 
+{
+  border: none;
+  background: none;
+}
+
 .close2
 {
   position: absolute;
-  left: 700px;
+  right: 40px;
+  top: 60px;
 }
 
 .thanks
 {
-  position: absolute;
-  width: 500px;
+  width: 450px;
+  font-size: 44px;
+  justify-content: center;
   text-align: center;
-  left: 120px;
-  top: 200px;
+  margin-top: 200px;
 }
 
 
@@ -345,13 +353,22 @@ input[data-error="true"]::after {
   height: 40px;
   background: none;
   position : absolute;
-  top: 450px;
-  cursor:pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border: none;
   transition: transform 0.3s;
   z-index: 3;
   /* Pour mettre des svg rdv à 30 min. */
   /* Par choix, je ne fais plus la transition opacity */
 }
+
+img.carousel_prev__picture, img.carousel_next__picture, img.carousel_close__picture {
+  width: 50px!important;
+  height: 50px!important;
+}
+
 
 .carousel_next:hover, .carousel_prev:hover {
   transform: scale(1.2);
@@ -364,7 +381,13 @@ input[data-error="true"]::after {
 .carousel_prev
 {
   left: 20px;
+  top: 450px;
   background: #fff;
+}
+
+.carousel_next
+{
+  top: 445px;
 }
 
 .carousel_next, .close_lightbox
@@ -374,12 +397,16 @@ input[data-error="true"]::after {
 
 .close_lightbox
 {
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
   background: none;
   position : absolute;
   top: 30px;
   cursor: pointer;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   z-index: 3;
   
 }
