@@ -76,6 +76,7 @@ export function photographerFactory(data) {
         const p = document.createElement('p');
         const a = document.createElement('a');
         a.setAttribute("tabindex", "0");
+        a.setAttribute("aria-label", `lien vers la page du photographe ${name}`)
         h2.textContent = name;
         h3.textContent = `${city}, ${country}`;
         h4.textContent = tagline;
@@ -144,7 +145,7 @@ export function bannerFactory(data) {
 // =====================================================================================================
 
 export function galleryFactory(data) {
-    let { image, video, title, likes } = data;
+    let { image, video, title, likes, date } = data;
 
     const picture = `assets/photographers/${image}`;
     const movie = `assets/photographers/${video}`;
@@ -171,11 +172,15 @@ export function galleryFactory(data) {
             video.setAttribute("controls", "width 250");
             video.setAttribute("type", "video/mp4");
             video.setAttribute("alt", `${title}`)
+            video.setAttribute("aria-label", `${title}`)
+            video.setAttribute("tabindex", "0");
         } else {
             const img = document.createElement('img');
             photoButton.appendChild(img);
             img.setAttribute("src", picture);
             img.setAttribute("alt", `${title}`)
+            img.setAttribute("aria-label", `${title}`)
+            img.setAttribute("tabindex", "0");
         }
         const h3 = document.createElement('h3');
         const h3_2 = document.createElement('h3');
@@ -213,6 +218,7 @@ export function galleryFactory(data) {
             h3_2.textContent = likes;
 
 
+
             let currentTotalofLikes = getTotaLikes();
 
             function displayCurrentTotalLikes(total) {
@@ -223,13 +229,15 @@ export function galleryFactory(data) {
 
             displayCurrentTotalLikes(currentTotalofLikes);
 
+
+
         })
 
         return (article);
 
     }
 
-    return { title, picture, getUserPictures, getLikes }
+    return { title, picture, getUserPictures, getLikes, date }
 }
 
 
@@ -292,7 +300,9 @@ export function lightBoxFactory(data) {
             article.appendChild(img);
             img.setAttribute("src", picture);
             img.setAttribute("class", "lightbox_img");
-            img.setAttribute("alt", `${title}`)
+            img.setAttribute("alt", `${title}`);
+            img.setAttribute("aria-label", `${title}`);
+            img.setAttribute("tabindex", 0);
         }
         const h3 = document.createElement('h3');
         const div = document.createElement('div');

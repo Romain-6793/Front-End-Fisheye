@@ -4,7 +4,7 @@ import { createCarousel } from "../utils/lightbox.js"
 
 
 let selectedPhotos = [];
-let mediaList = [];
+let dynamicPhotos = [];
 
 
 
@@ -48,9 +48,9 @@ function displayGallery(media) {
         const photoSection2 = galleryFactory(photo);
         const userPictures = photoSection2.getUserPictures();
         photoSection.appendChild(userPictures);
-        mediaList.push(photoSection2);
-    });
+        dynamicPhotos.push(photoSection2);
 
+    });
 
 
 }
@@ -58,9 +58,10 @@ function displayGallery(media) {
 // Cette fonction permet de supprimer la gallerie lorsqu'un tri s'effectue, avant d'en afficher une nouvelle
 // correspondant au tri effectué.
 
-function clearGallery() {
+function changeGallery() {
     const userSection0 = document.querySelector(".gallery_section");
-    document.getElementById("main").removeChild(userSection0);
+    // document.getElementById("main").removeChild(userSection0);
+    userSection0.innerHTML = "";
 }
 
 // Cette fonction permet de supprimer la lightbox lorsque je choisis de la fermer
@@ -76,6 +77,8 @@ function displayLightBox(index = 0) {
 
     // Ici , pas besoin de mettre selectedPhotos en paramètres, au contraire, cela va modifier la référence
     // et selectedPhotos ne sera plus le tableau dont j'ai besoin.
+
+    console.log(index);
 
     const gallery = document.querySelector(".gallery_section")
     const photoButton = document.querySelector(".photo_button")
@@ -147,7 +150,41 @@ function displayLightBox(index = 0) {
         carouselWindow.appendChild(userLightBox);
     });
 
-    createCarousel(index);
+    const myCarousel = createCarousel(index);
+
+    function onKeyboard(e) {
+        if (e.key === "Escape") {
+            closeLightBox()
+        }
+
+        if (e.key === "ArrowLeft") {
+            myCarousel.prev()
+        }
+
+        if (e.key === "ArrowRight") {
+            myCarousel.next()
+        }
+    }
+
+    function watchFocus(e) {
+        lightboxImg.addEventListener("keyup", resetFocus)
+        if (e.key === "Tabulation") {
+            resetFocus()
+        }
+    }
+
+    function resetFocus() {
+        document.querySelector(".carousel_prev").focus();
+    }
+
+    document.addEventListener("keyup", onKeyboard)
+    document.addEventListener("keyup", watchFocus)
+
+    document.querySelector(".carousel_prev").focus();
+
+    const lightboxImg = document.querySelector(".lightbox_img")
+
+
 
     // ===================================================================================
     // Trouver un moyen de dissocier ce code...
@@ -157,7 +194,7 @@ function displayLightBox(index = 0) {
     closeLightboxBtn.forEach((btn) => btn.addEventListener("click", closeLightBox))
 
     function closeLightBox() {
-
+        document.removeEventListener("keyup", onKeyboard)
         lightBox.style.display = "none";
         lightBox.setAttribute("aria-hidden", "true")
         const likesPopup = document.getElementById("likes_popup");
@@ -176,10 +213,6 @@ function displayLightBox(index = 0) {
     // ======================================================================================
 
 }
-
-
-
-
 
 
 // Les deux fonctions qui suivent permettent d'afficher respectivement le nombre total de likes et le prix
@@ -206,11 +239,10 @@ function displayPrice(photographers) {
 // Les trois fonctions qui suivent me permettent de trier par popularité, date ou titre les photos qui
 // vont s'afficher (elles mêmes étant des composants de la variable-tableau selectedPhotos).
 
-function sortByPopularity(mediaList) {
-    console.log(mediaList)
-    console.log("tableau likes trié", mediaList.sort((a, b) => {
-        a = a.likes;
-        b = b.likes;
+function sortByPopularity(dynamicPhotos) {
+    console.log("tableau likes trié", dynamicPhotos.sort((a, b) => {
+        a = a.getLikes();
+        b = b.getLikes();
         if (a - b > 0) {
             return -1;
         }
@@ -222,11 +254,13 @@ function sortByPopularity(mediaList) {
         }
     }));
 
-    clearGallery();
+    changeGallery();
 
-    displayGallery(mediaList.sort((a, b) => {
-        a = a.likes;
-        b = b.likes;
+    const photoSection = document.querySelector(".gallery_section");
+
+    dynamicPhotos.sort((a, b) => {
+        a = a.getLikes();
+        b = b.getLikes();
         if (a - b > 0) {
             return -1;
         }
@@ -236,12 +270,22 @@ function sortByPopularity(mediaList) {
         if (a - b === 0) {
             return 0;
         }
-    }));
+    });
 
+    dynamicPhotos.forEach((photo) => {
+        const userPictures = photo.getUserPictures();
+        photoSection.appendChild(userPictures);
+
+    });
+
+    photoListener();
 }
 
-function sortByDate(mediaList) {
-    console.log("tableau dates trié", mediaList.sort((a, b) => {
+function sortByDate(dynamicPhotos) {
+    changeGallery();
+    const photoSection = document.querySelector(".gallery_section");
+
+    dynamicPhotos.sort((a, b) => {
         a = a.date;
         b = b.date;
 
@@ -254,29 +298,24 @@ function sortByDate(mediaList) {
         if (a === b) {
             return a.date - b.date;
         }
-    }));
+    });
 
-    clearGallery();
+    dynamicPhotos.forEach((photo) => {
+        const userPictures = photo.getUserPictures();
+        photoSection.appendChild(userPictures);
 
-    displayGallery(mediaList.sort((a, b) => {
-        a = a.date;
-        b = b.date;
+    });
 
-        if (a > b) {
-            return -1;
-        }
-        if (a < b) {
-            return 1;
-        }
-        if (a === b) {
-            return a.date - b.date;
-        }
-    }));
+    photoListener();
 
 }
 
-function sortByTitle(mediaList) {
-    console.log("tableau titre trié", mediaList.sort((a, b) => {
+function sortByTitle(dynamicPhotos) {
+    changeGallery();
+
+    const photoSection = document.querySelector(".gallery_section");
+
+    dynamicPhotos.sort((a, b) => {
         a = a.title;
         b = b.title;
 
@@ -289,25 +328,15 @@ function sortByTitle(mediaList) {
         if (a === b) {
             return a.date - b.date;
         }
-    }));
+    });
 
-    clearGallery();
+    dynamicPhotos.forEach((photo) => {
+        const userPictures = photo.getUserPictures();
+        photoSection.appendChild(userPictures);
 
-    displayGallery(mediaList.sort((a, b) => {
-        a = a.title;
-        b = b.title;
+    });
 
-        if (a < b) {
-            return -1;
-        }
-        if (a > b) {
-            return 1;
-        }
-        if (a === b) {
-            return a.date - b.date;
-        }
-    }));
-
+    photoListener();
 
 }
 
@@ -321,13 +350,13 @@ function launchSortPhotos() {
         e.preventDefault();
 
         if (e.target.value === "popularité") {
-            sortByPopularity(selectedPhotos);
+            sortByPopularity(dynamicPhotos);
         }
         if (e.target.value === "date") {
-            sortByDate(selectedPhotos);
+            sortByDate(dynamicPhotos);
         }
         if (e.target.value === "titre") {
-            sortByTitle(selectedPhotos);
+            sortByTitle(dynamicPhotos);
         }
     })
 
@@ -340,14 +369,8 @@ function photoListener() {
     const photoButton = document.querySelectorAll(".photo_button");
     photoButton.forEach((btn, index) => btn.addEventListener("click", () => displayLightBox(index)))
 
-    // photoLink.forEach((a) => a.addEventListener("click", (e) => {
-    //     e.preventDefault()
-    //     displayLightBox()
-    // }))
 
 }
-
-
 
 fetch("../data/photographers.json")
     .then(function (res) {
@@ -423,7 +446,7 @@ fetch("../data/photographers.json")
             displayGallery(photos);
             displayLikes([photographers]);
             displayPrice([photographers]);
-            launchSortPhotos(selectedPhotos);
+            launchSortPhotos();
             photoListener(selectedPhotos);
         }
 

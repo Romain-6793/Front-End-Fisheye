@@ -179,16 +179,12 @@ class Carousel {
 
     next() {
 
-        console.log(this.options.slidesToScroll)
-
         this.goToItem(this.currentItem + this.options.slidesToScroll)
         // this.goToItem(this.currentItem + 1)
 
     }
 
     prev() {
-
-        console.log(this.options.slidesToScroll)
 
         this.goToItem(this.currentItem - this.options.slidesToScroll)
         // this.goToItem(this.currentItem - 1)
@@ -273,10 +269,8 @@ export function createCarousel(idx = 0) {
         loop: true
 
     })
-    window.carou = myCarousel;
     myCarousel.goToItem(idx)
-    console.log(myCarousel);
-    console.log(myCarousel.element);
+    return myCarousel
 }
 
 

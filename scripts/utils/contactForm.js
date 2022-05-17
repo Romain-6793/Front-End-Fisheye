@@ -6,7 +6,7 @@ const close1 = document.querySelectorAll(".close");
 const close2 = document.querySelectorAll(".close2");
 const modalButton = document.querySelectorAll(".contact_button");
 
-
+document.querySelector(".close").focus();
 
 
 modalButton.forEach((button) => button.addEventListener("click", displayModal));
@@ -28,6 +28,7 @@ function displayModal() {
     const photoButton = document.querySelector(".photo_button")
     const likingButton = document.querySelector(".liking_button")
     modal.style.display = "block";
+    document.querySelector(".close").focus();
     modal.setAttribute("aria-hidden", "false")
     gallery.setAttribute("aria-hidden", "true")
     photoButton.setAttribute("aria-hidden", "true")
@@ -48,6 +49,7 @@ function closeModal() {
     const likingButton = document.querySelector(".liking_button")
     modal.style.display = "none";
     modal.setAttribute("aria-hidden", "true")
+    document.removeEventListener("keyup", onKeyboard)
     const likesPopup = document.getElementById("likes_popup");
     likesPopup.style.display = "block";
     gallery.setAttribute("aria-hidden", "false")
@@ -139,11 +141,58 @@ function launchSubmit(e) {
     isMyMessageCorrect(messageData);
 
     if ((rightFirstName) && (rightLastName) && (rightMail) && (rightMessage)) {
+        console.log("prénom:", firstNameData, "nom:", lastNameData, "adresse mail:", mailData, "message:", messageData)
         modalbg.style.display = "none";
         modalbg.setAttribute("aria-hidden", "true")
         modalbg2.style.display = "block";
+        document.querySelector(".close2").focus();
         modalbg2.setAttribute("aria-hidden", "false")
+
     }
 
 }
 
+function onKeyboard(e) {
+    if (e.key === "Escape") {
+        closeModal()
+    }
+
+}
+
+function onKeyboard2(e) {
+    if (e.key === "Escape") {
+        closeModal2()
+    }
+
+}
+
+function watchFocus(e) {
+    resetFocusModal.addEventListener("keyup", resetFocus)
+    if (e.key === "Tabulation") {
+        resetFocus()
+    }
+}
+
+function watchFocus2(e) {
+    resetFocusModal2.addEventListener("keyup", resetFocus2)
+    if (e.key === "Tabulation") {
+        resetFocus2()
+    }
+}
+
+function resetFocus() {
+    document.querySelector(".close").focus();
+}
+
+function resetFocus2() {
+    document.querySelector(".close2").focus();
+}
+
+
+document.addEventListener("keyup", onKeyboard)
+document.addEventListener("keyup", onKeyboard2)
+document.addEventListener("keyup", watchFocus)
+document.addEventListener("keyup", watchFocus2)
+
+const resetFocusModal = document.querySelector(".resetFocus_modal")
+const resetFocusModal2 = document.querySelector(".resetFocus_modal2")

@@ -35,38 +35,41 @@
     <div class="modal" role="dialog">
       <header>
         <h2>Contactez-moi</h2>
-        <button type="button" aria-label="fermer la page" class="close" tabindex="0">
+        <button type="button" aria-label="fermer la modale" class="close" tabindex="0">
           <img src="assets/icons/close.svg" alt="" />
         </button>
       </header>
       <form>
         <div class="formData" id="formData1" data-error="false" data-error-visible="false">
           <label>Prénom</label>
-          <input class="text_control firstname" tabindex="0" />
+          <input class="text_control firstname" aria-label="Entrez votre prénom" tabindex="0" />
         </div>
         <div class="formData" id="formData2" data-error="false" data-error-visible="false">
           <label>Nom</label>
-          <input class="text_control lastname" tabindex="0" />
+          <input class="text_control lastname" aria-label="Entrez votre nom" tabindex="0" />
         </div>
         <div class="formData" id="formData3" data-error="false" data-error-visible="false">
           <label>Email</label>
-          <input class="text_control mailadress" tabindex="0" />
+          <input class="text_control mailadress" aria-label="Entrez votre adresse mail" tabindex="0" />
         </div>
         <div class="formData" id="formData4" data-error="false" data-error-visible="false">
           <label>Votre message</label>
-          <textarea name="Message" class="text_control input_message" id="message" title="write message" tabindex="0"
-            autofocus></textarea>
+          <textarea name="Message" class="text_control input_message" id="message" title="write message"
+            aria-label="Entrez votre message pour le photographe" tabindex="0" autofocus></textarea>
         </div>
         <button type="submit" class="send_button" id="send_button" aria-label="envoyer le formulaire"
           tabindex="0">Envoyer</button>
+        <div class="resetFocus_modal" tabindex="0"></div>
       </form>
     </div>
   </article>
   <article id="confirm_modal" aria-label="popup de confirmation" aria-hidden="true">
     <div class="modal modal2" role="dialog">
-      <button type="button" class="close2" aria-label="fermer la page"><img src="assets/icons/close.svg"
+      <button type="button" class="close2" aria-label="fermer la modale"><img src="assets/icons/close.svg"
           alt="" /></button>
-      <h2 class="thanks">Merci, votre message a été envoyé avec succès !</h2>
+      <h2 class="thanks" aria-label="Merci, votre message a été envoyé avec succès !" tabindex="0">Merci, votre message
+        a été envoyé avec succès !</h2>
+      <div class="resetFocus_modal2" tabindex="0"></div>
     </div>
   </article>
 
