@@ -237,7 +237,7 @@ export function galleryFactory(data) {
 
     }
 
-    return { title, picture, getUserPictures, getLikes, date }
+    return { title, picture: image && picture, getUserPictures, getLikes, date, movie: video && movie }
 }
 
 
@@ -268,10 +268,10 @@ export function priceFactory(data) {
 
 export function lightBoxFactory(data) {
 
-    let { image, video, title } = data;
+    let { picture, title, movie } = data;
 
-    const picture = `assets/photographers/${image}`;
-    const movie = `assets/photographers/${video}`;
+    // const picture = `assets/photographers/${image}`;
+    // const movie = `assets/photographers/${video}`;
     const lightBox = document.getElementById("lightbox_modal");
     lightBox.style.display = "block";
 
@@ -287,7 +287,7 @@ export function lightBoxFactory(data) {
 
 
         const article = document.createElement('article');
-        if (video) {
+        if (movie) {
             const video = document.createElement('video');
             article.appendChild(video);
             video.setAttribute("src", movie);
@@ -315,6 +315,6 @@ export function lightBoxFactory(data) {
     }
 
     return {
-        image, video, title, getUserLightBox
+        image: picture, video: movie, title, getUserLightBox
     }
 }

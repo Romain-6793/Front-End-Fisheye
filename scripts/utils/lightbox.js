@@ -252,12 +252,11 @@ class Carousel {
 
 }
 
-// Ici, nous avons quelque part notre fonction d'initialisation avec comme EL DOMContentLoaded, cela veut
-// dire qu'il faut attendre que tout soit chargé pour lancer la fonction callback, cette fonction
+// Ici, nous avons quelque part notre fonction d'initialisation, cette fonction
 // crée une instance de l'objet Carousel et tout ce qui suit, ici, on va pouvoir paramétrer le nombre 
 // de slides qui défilent en même temps, ainsi que le nombre de slides visibles à l'écran.
 
-// J'ai retiré l'EL DOMContentLoaded pour le test, cela peut venir de là...
+
 
 
 export function createCarousel(idx = 0) {

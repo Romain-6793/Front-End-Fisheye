@@ -142,8 +142,8 @@ function displayLightBox(index = 0) {
 
 
 
-
-    selectedPhotos.forEach((photo) => {
+    console.log(dynamicPhotos)
+    dynamicPhotos.forEach((photo) => {
         const lightBox2 = lightBoxFactory(photo);
         const userLightBox = lightBox2.getUserLightBox();
         // console.log(userLightBox);
@@ -284,6 +284,21 @@ function sortByPopularity(dynamicPhotos) {
 function sortByDate(dynamicPhotos) {
     changeGallery();
     const photoSection = document.querySelector(".gallery_section");
+
+    // displayGallery(dynamicPhotos.sort((a, b) => {
+    //     a = a.date;
+    //     b = b.date;
+
+    //     if (a > b) {
+    //         return -1;
+    //     }
+    //     if (a < b) {
+    //         return 1;
+    //     }
+    //     if (a === b) {
+    //         return a.date - b.date;
+    //     }
+    // }));
 
     dynamicPhotos.sort((a, b) => {
         a = a.date;
