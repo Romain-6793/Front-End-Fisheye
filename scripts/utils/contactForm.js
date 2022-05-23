@@ -88,8 +88,6 @@ function isMyFirstNameTrue(myFirstName) {
 
 }
 
-// Même principe avec le nom de famille que pour la fonction du prénom.
-
 function isMyLastNameTrue(myLastName) {
     if ((myLastName.length >= 2) && (!myLastName.match(/^[\d]+$/))) {
         rightLastName = true;

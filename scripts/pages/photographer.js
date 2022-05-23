@@ -60,7 +60,6 @@ function displayGallery(media) {
 
 function changeGallery() {
     const userSection0 = document.querySelector(".gallery_section");
-    // document.getElementById("main").removeChild(userSection0);
     userSection0.innerHTML = "";
 }
 
@@ -77,8 +76,6 @@ function displayLightBox(index = 0) {
 
     // Ici , pas besoin de mettre selectedPhotos en paramètres, au contraire, cela va modifier la référence
     // et selectedPhotos ne sera plus le tableau dont j'ai besoin.
-
-    console.log(index);
 
     const gallery = document.querySelector(".gallery_section")
     const photoButton = document.querySelector(".photo_button")
@@ -140,13 +137,9 @@ function displayLightBox(index = 0) {
     photoButton.removeAttribute("tabindex")
     likingButton.removeAttribute("tabindex")
 
-
-
-    console.log(dynamicPhotos)
     dynamicPhotos.forEach((photo) => {
         const lightBox2 = lightBoxFactory(photo);
         const userLightBox = lightBox2.getUserLightBox();
-        // console.log(userLightBox);
         carouselWindow.appendChild(userLightBox);
     });
 
@@ -166,8 +159,15 @@ function displayLightBox(index = 0) {
         }
     }
 
+    const lightboxImg = document.querySelector(".lightbox_img")
+    const lightboxVid = document.querySelector(".lightbox_video")
+    // const slideTitle = document.querySelector(".slideTitle")
+
+
     function watchFocus(e) {
         lightboxImg.addEventListener("keyup", resetFocus)
+        lightboxVid.addEventListener("keyup", resetFocus)
+        // slideTitle.addEventListener("keyup", resetFocus)
         if (e.key === "Tabulation") {
             resetFocus()
         }
@@ -182,12 +182,7 @@ function displayLightBox(index = 0) {
 
     document.querySelector(".carousel_prev").focus();
 
-    const lightboxImg = document.querySelector(".lightbox_img")
-
-
-
     // ===================================================================================
-    // Trouver un moyen de dissocier ce code...
 
     const closeLightboxBtn = document.querySelectorAll(".close_lightbox");
 
@@ -240,19 +235,6 @@ function displayPrice(photographers) {
 // vont s'afficher (elles mêmes étant des composants de la variable-tableau selectedPhotos).
 
 function sortByPopularity(dynamicPhotos) {
-    console.log("tableau likes trié", dynamicPhotos.sort((a, b) => {
-        a = a.getLikes();
-        b = b.getLikes();
-        if (a - b > 0) {
-            return -1;
-        }
-        if (a - b < 0) {
-            return 1;
-        }
-        if (a - b === 0) {
-            return 0;
-        }
-    }));
 
     changeGallery();
 
@@ -284,21 +266,6 @@ function sortByPopularity(dynamicPhotos) {
 function sortByDate(dynamicPhotos) {
     changeGallery();
     const photoSection = document.querySelector(".gallery_section");
-
-    // displayGallery(dynamicPhotos.sort((a, b) => {
-    //     a = a.date;
-    //     b = b.date;
-
-    //     if (a > b) {
-    //         return -1;
-    //     }
-    //     if (a < b) {
-    //         return 1;
-    //     }
-    //     if (a === b) {
-    //         return a.date - b.date;
-    //     }
-    // }));
 
     dynamicPhotos.sort((a, b) => {
         a = a.date;
@@ -434,7 +401,6 @@ fetch("../data/photographers.json")
             const params = new URLSearchParams(url.search);
             const photographerId2 = Number(params.get("id"));
             selectedPhotos = photos.filter((elem) => {
-                //TODO: photographId2 et elem.photographerId sont ils identiques ?
                 if (photosId === photographerId2) {
                     return elem.photographerId === photosId;
                 }

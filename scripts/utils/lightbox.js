@@ -3,22 +3,6 @@
 
 
 
-// const closeLightboxBtn = document.querySelector(".close_lightbox");
-// closeLightboxBtn.forEach((btn) => btn.addEventListener("click", closeLightBox))
-
-// function closeLightBox() {
-
-//     const lightBox = document.getElementById("lightbox_modal");
-//     lightBox.style.display = "none";
-//     const likesPopup = document.getElementById("likes_popup");
-//     likesPopup.style.display = "block";
-
-// }
-
-// =======================================================================================================
-
-
-
 class Carousel {
 
 
@@ -70,7 +54,6 @@ class Carousel {
         // this.currentItem = 0 désigne au départ le premier item du tableau (la première slide).
 
         let children = [].slice.call(element.children)
-        console.log(children)
         this.currentItem = 0
 
         // Ci-dessous, on appelle la fonction this.createDivWithClass en lui passant comme argument
@@ -80,8 +63,7 @@ class Carousel {
 
         this.root = this.createDivWithClass("carousel")
         this.container = this.createDivWithClass("carousel__container")
-        console.log(this.root)
-        console.log(this.container)
+
 
 
 

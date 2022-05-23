@@ -270,21 +270,10 @@ export function lightBoxFactory(data) {
 
     let { picture, title, movie } = data;
 
-    // const picture = `assets/photographers/${image}`;
-    // const movie = `assets/photographers/${video}`;
     const lightBox = document.getElementById("lightbox_modal");
     lightBox.style.display = "block";
 
-
-    // for (let i = 0; i < data.length; i++) {
-
-
-    // }
-
     function getUserLightBox() {
-
-
-
 
         const article = document.createElement('article');
         if (movie) {
@@ -302,13 +291,15 @@ export function lightBoxFactory(data) {
             img.setAttribute("class", "lightbox_img");
             img.setAttribute("alt", `${title}`);
             img.setAttribute("aria-label", `${title}`);
-            img.setAttribute("tabindex", 0);
+            img.setAttribute("tabindex", "0");
         }
         const h3 = document.createElement('h3');
         const div = document.createElement('div');
 
         article.appendChild(div);
         div.appendChild(h3);
+        h3.setAttribute("tabindex", "0")
+        h3.setAttribute("class", "slideTitle")
         h3.textContent = title;
 
         return article;
