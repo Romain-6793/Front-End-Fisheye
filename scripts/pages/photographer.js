@@ -231,37 +231,6 @@ function displayPrice(photographers) {
     });
 }
 
-
-function defaultSortByPopularity(selectedPhotos) {
-
-    changeGallery();
-
-    const photoSection = document.querySelector(".gallery_section");
-
-    dynamicPhotos.sort((a, b) => {
-        a = a.getLikes();
-        b = b.getLikes();
-        if (a - b > 0) {
-            return -1;
-        }
-        if (a - b < 0) {
-            return 1;
-        }
-        if (a - b === 0) {
-            return 0;
-        }
-    });
-
-    selectedPhotos.forEach((photo) => {
-        const userPictures = photo.getUserPictures();
-        photoSection.appendChild(userPictures);
-
-    });
-
-    photoListener();
-}
-
-
 // Les trois fonctions qui suivent me permettent de trier par popularité, date ou titre les photos qui
 // vont s'afficher (elles mêmes étant des composants de la variable-tableau selectedPhotos).
 
@@ -456,6 +425,7 @@ fetch("../data/photographers.json")
             const photos = await getPhotos(photographerId);
             displayBanner([photographers]);
             displayGallery(photos);
+            sortByPopularity(dynamicPhotos);
             displayLikes([photographers]);
             displayPrice([photographers]);
             launchSortPhotos();
