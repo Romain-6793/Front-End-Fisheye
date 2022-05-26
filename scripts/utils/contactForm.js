@@ -39,6 +39,8 @@ function displayModal() {
 
     const likesPopup = document.getElementById("likes_popup");
     likesPopup.style.display = "none";
+    const customSelect = document.querySelector(".custom-select");
+    customSelect.style.opacity = 0.9;
 
 }
 
@@ -52,6 +54,8 @@ function closeModal() {
     document.removeEventListener("keyup", onKeyboard)
     const likesPopup = document.getElementById("likes_popup");
     likesPopup.style.display = "block";
+    const customSelect = document.querySelector(".custom-select");
+    customSelect.style.opacity = 1;
     gallery.setAttribute("aria-hidden", "false")
     photoButton.setAttribute("aria-hidden", "false")
     likingButton.setAttribute("aria-hidden", "false")
@@ -68,6 +72,8 @@ function closeModal2() {
     modal.setAttribute("aria-hidden", "true")
     const likesPopup = document.getElementById("likes_popup");
     likesPopup.style.display = "block";
+    const customSelect = document.querySelector(".custom-select");
+    customSelect.style.opacity = 1;
     gallery.setAttribute("aria-hidden", "false")
     photoButton.setAttribute("aria-hidden", "false")
     likingButton.setAttribute("aria-hidden", "false")

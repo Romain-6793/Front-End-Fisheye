@@ -86,6 +86,8 @@ function displayLightBox(index = 0) {
     lightBox.setAttribute("aria-hidden", "false")
     const likesPopup = document.getElementById("likes_popup");
     likesPopup.style.display = "none";
+    const customSelect = document.querySelector(".custom-select");
+    customSelect.style.display = "none";
     const lightBoxFlex = document.createElement("div");
     lightBoxFlex.setAttribute("id", "lightbox_flex");
     const carouselBox = document.createElement("div");
@@ -194,6 +196,8 @@ function displayLightBox(index = 0) {
         lightBox.setAttribute("aria-hidden", "true")
         const likesPopup = document.getElementById("likes_popup");
         likesPopup.style.display = "block";
+        const customSelect = document.querySelector(".custom-select");
+        customSelect.style.display = "block";
 
         gallery.setAttribute("aria-hidden", "false")
         photoButton.setAttribute("aria-hidden", "false")
@@ -325,22 +329,36 @@ function sortByTitle(dynamicPhotos) {
 // La macro-focntion qui suit me permet d'ajouter un event-Listener change à chaque item du menu déroulant,
 // déclenchant ainsi la fonction de tri appropriée selon la valeur sélectionnée.
 
+// function launchSortPhotos() {
+//     const selectionner = document.getElementById("menu_select");
+//     selectionner.addEventListener("change", (e) => {
+
+//         e.preventDefault();
+
+//         if (e.target.value === "popularité") {
+//             sortByPopularity(dynamicPhotos);
+//         }
+//         if (e.target.value === "date") {
+//             sortByDate(dynamicPhotos);
+//         }
+//         if (e.target.value === "titre") {
+//             sortByTitle(dynamicPhotos);
+//         }
+//     })
+
+// }
+
 function launchSortPhotos() {
-    const selectionner = document.getElementById("menu_select");
-    selectionner.addEventListener("change", (e) => {
+    const selectPopularity = document.querySelector(".select-popularity")
+    console.log(selectPopularity)
+    const selectDate = document.querySelector(".select-date")
+    console.log(selectDate)
+    const selectTitle = document.querySelector(".select-title")
+    console.log(selectTitle)
 
-        e.preventDefault();
-
-        if (e.target.value === "popularité") {
-            sortByPopularity(dynamicPhotos);
-        }
-        if (e.target.value === "date") {
-            sortByDate(dynamicPhotos);
-        }
-        if (e.target.value === "titre") {
-            sortByTitle(dynamicPhotos);
-        }
-    })
+    selectPopularity.addEventListener("click", () => sortByPopularity(dynamicPhotos))
+    selectDate.addEventListener("click", () => sortByDate(dynamicPhotos))
+    selectTitle.addEventListener("click", () => sortByTitle(dynamicPhotos))
 
 }
 
@@ -428,7 +446,7 @@ fetch("../data/photographers.json")
             sortByPopularity(dynamicPhotos);
             displayLikes([photographers]);
             displayPrice([photographers]);
-            launchSortPhotos();
+            launchSortPhotos(dynamicPhotos);
             photoListener(selectedPhotos);
         }
 

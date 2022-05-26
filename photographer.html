@@ -3,6 +3,8 @@
 
 <head>
   <link href="css/style.css" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="fontawesome-free-5.15.4-web/css/all.css" />
+  <!-- <link href="custom-select.css" rel="stylesheet" type="text/css" /> -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Accédez au portfolio de nos meilleurs photographes">
@@ -22,60 +24,55 @@
     <section class="photograph-header" aria-label="bannière du photographe">
       <button class="contact_button" id="contact_button" aria-label="bouton de contact">Contactez-moi</button>
     </section>
-    <!-- <label for="select-check" class="select-label">
-      
-      <div class="tab menu__ingredients"> Ingrédients</div>
-  </label>
-  <input id="select-check" type="checkbox" class="select-check"> -->
 
-    <nav id="nav_select" class="nav_select" aria-label="menu de tri">
+    <!-- <nav id="nav_select" class="nav_select" aria-label="menu de tri">
       <label for="menu_select" class="label_select">Trier par</label>
 
-      <!-- <ul class="menu_select" id="menu_select">
-        <li class="menu_select__option" value="popularité">Popularité</li>
-        <li class="menu_select__option" value="date">Date</li>
-        <li class="menu_select__option" value="titre">Titre</li>
-      </ul> -->
+
+
       <select id="menu_select" class="menu_select">
         <option class="menu_select__option" value="popularité">Popularité</option>
         <option class="menu_select__option" value="date">Date</option>
         <option class="menu_select__option" value="titre">Titre</option>
       </select>
 
-    </nav>
-
-    <!-- <nav id="nav_select" class="nav_select" aria-label="menu de tri">
-      <div class="custom-select">
-        <ul class="select">
-          <li>
-            <input class="select_close" type="radio" name="customselect" id="customselect-close" value="" />
-            <span class="select_label select_label-placeholder" value="popularité">Popularité</span>
-          </li>
-
-          <li class="select_items">
-            <input class="select_expand" type="radio" name="customselect" id="customselect-opener" />
-            <label class="select_closeLabel" for="customselect-close"></label>
-
-            <ul class="select_options">
-              <li class="select_option">
-                <input class="select_input" type="radio" name="customselect" id="customselect-date" />
-                <label class="select_label" for="customselect-date"><span class="border-top"
-                    value="date">Date</span></label>
-              </li>
-
-              <li class="select_option">
-                <input class="select_input" type="radio" name="customselect" id="customselect-titre" />
-                <label class="select_label" for="customselect-titre"><span class="border-top"
-                    value="titre">Titre</span></label>
-              </li>
-
-            </ul>
-
-            <label class="select_expandLabel" for="customselect-opener"></label>
-          </li>
-        </ul>
-      </div>
     </nav> -->
+
+    <nav id="nav_select" class="nav_select" aria-label="menu de tri">
+      <label for="menu_select" class="label_select">Trier par</label>
+      <div class="custom-select">
+        <div class="select-wrapper">
+          <ul class="select">
+            <li>
+              <input class="select_close" type="radio" name="customselect" id="customselect-close" value="" />
+              <span class="select_label select_label-placeholder" value="popularité">Popularité</span>
+            </li>
+
+            <li class="select_items">
+              <input class="select_expand" type="radio" name="customselect" id="customselect-opener" />
+              <label class="select_closeLabel select-popularity" for="customselect-close"></label>
+
+              <ul class="select_options">
+                <li class="select_option">
+                  <input class="select_input" type="radio" name="customselect" id="customselect-date" />
+                  <label class="select_label select-date" for="customselect-date"><span class="border-top"
+                      value="date">Date</span></label>
+                </li>
+
+                <li class="select_option">
+                  <input class="select_input" type="radio" name="customselect" id="customselect-titre" />
+                  <label class="select_label select-title" for="customselect-titre"><span class="border-top"
+                      value="titre">Titre</span></label>
+                </li>
+
+              </ul>
+
+              <label class="select_expandLabel" for="customselect-opener"></label>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
 
     <aside id="likes_popup" class="likes_popup"></aside>
   </main>
