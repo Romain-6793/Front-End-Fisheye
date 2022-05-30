@@ -30,24 +30,26 @@
           <ul class="select">
             <li>
               <input class="select_close" type="radio" name="customselect" id="customselect-close" value="" />
-              <span class="select_label select_label-placeholder" value="popularité">Popularité</span>
+              <span class="select_label select_label-placeholder">Popularité</span>
             </li>
 
             <li class="select_items">
               <input class="select_expand" type="radio" name="customselect" id="customselect-opener" />
-              <label class="select_closeLabel select-popularity" for="customselect-close"></label>
+              <label class="select_closeLabel select-popularity" for="customselect-close" aria-selected="true"
+                role="button" tabindex="0" aria-haspopup="true" aria-expanded="false"></label>
 
-              <ul class="select_options">
-                <li class="select_option">
+              <ul class="select_options" role="listbox" aria-activedescendant="date-option"
+                aria-labelledby="customselect-opener">
+                <li class="select_option" id="date-option">
                   <input class="select_input" type="radio" name="customselect" id="customselect-date" />
-                  <label class="select_label select-date" for="customselect-date"><span class="border-top"
-                      value="date">Date</span></label>
+                  <label class="select_label select-date" aria-selected="false" role="button" tabindex="0"
+                    for="customselect-date"><span class="border-top">Date</span></label>
                 </li>
 
-                <li class="select_option">
+                <li class="select_option" id="title-option">
                   <input class="select_input" type="radio" name="customselect" id="customselect-titre" />
-                  <label class="select_label select-title" for="customselect-titre"><span class="border-top"
-                      value="titre">Titre</span></label>
+                  <label class="select_label select-title" aria-selected="false" role="button" tabindex="0"
+                    for="customselect-titre"><span class="border-top">Titre</span></label>
                 </li>
 
               </ul>
