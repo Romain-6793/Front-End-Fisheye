@@ -312,7 +312,7 @@ function sortByTitle(dynamicPhotos) {
             return 1;
         }
         if (a === b) {
-            return a.date - b.date;
+            return a.title - b.title;
         }
     });
 
@@ -329,24 +329,6 @@ function sortByTitle(dynamicPhotos) {
 // La macro-focntion qui suit me permet d'ajouter un event-Listener change à chaque item du menu déroulant,
 // déclenchant ainsi la fonction de tri appropriée selon la valeur sélectionnée.
 
-// function launchSortPhotos() {
-//     const selectionner = document.getElementById("menu_select");
-//     selectionner.addEventListener("change", (e) => {
-
-//         e.preventDefault();
-
-//         if (e.target.value === "popularité") {
-//             sortByPopularity(dynamicPhotos);
-//         }
-//         if (e.target.value === "date") {
-//             sortByDate(dynamicPhotos);
-//         }
-//         if (e.target.value === "titre") {
-//             sortByTitle(dynamicPhotos);
-//         }
-//     })
-
-// }
 
 function launchSortPhotos() {
     const selectPopularity = document.querySelector(".select-popularity")
