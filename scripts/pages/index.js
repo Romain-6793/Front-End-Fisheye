@@ -39,7 +39,7 @@ fetch("../data/photographers.json")
         // de constante . Résultat : je peux passer photographers en paramètre de displayData.
 
         function init() {
-            const { photographers } = res2;
+            const { photographers } = res2 ?? [];
             displaySection(photographers);
         }
 
